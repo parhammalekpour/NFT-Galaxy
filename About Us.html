@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | NFT Galxe</title>
+  <link rel="stylesheet" href="./Style/style.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
+        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="./About Us.html">About Us</a></li>
+      </ul>
+
+      <div class="wallet-menu">
+        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+
+        <div id="walletDropdown" class="wallet-dropdown hidden">
+          <p id="walletAddressText">Not connected</p>
+          <button id="logoutWallet" class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+
+    <!-- About -->
+    <section class="about">
+      <article class="about-container">
+        <h2>What Are NFTs?</h2>
+        <p>
+          NFTs (Non-Fungible Tokens) are unique digital assets stored on a blockchain...
+        </p>
+        <p>
+          In the NFT Galxe marketplace, artists and collectors come together...
+        </p>
+      </article>
+    </section>
+
+    <!-- Poll -->
+    <section class="poll">
+      <h3>🗳️ Do You Currently Own Any NFTs?</h3>
+
+      <div class="poll-options">
+        <button class="poll-btn" data-answer="yes">Yes, I do!</button>
+        <button class="poll-btn" data-answer="no">Not yet</button>
+      </div>
+
+      <p id="poll-result"></p>
+    </section>
+
+    <!-- Survey -->
+    <section class="survey">
+      <article class="survey-container">
+        <h3>📩 Stay Updated!</h3>
+        <p>Enter your information to receive updates.</p>
+
+        <form id="surveyForm">
+          <div class="form-group">
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+          </div>
+
+          <input type="email" id="email" placeholder="Email Address" required>
+
+          <button type="submit" class="survey-btn">Submit</button>
+        </form>
+
+        <p id="surveyMessage" class="survey-message"></p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="socials">
+      <a href="#">Twitter</a>
+      <a href="#">Discord</a>
+      <a href="#">Instagram</a>
+    </div>
+    <p>© 2025 NFT Galxe. All rights reserved.</p>
+  </footer>
+
+  <script src="./Wallet connect.js"></script>
+
+  <script>
+    // --- Poll System ---
+    const pollButtons = document.querySelectorAll(".poll-btn");
+    const pollResult = document.getElementById("poll-result");
+
+    pollButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        pollResult.textContent =
+          btn.dataset.answer === "yes"
+            ? "🔥 Awesome! You're part of the NFT revolution."
+            : "🚀 No worries! Explore the marketplace and start your journey!";
+      });
+    });
+
+    // --- Survey Form ---
+    const surveyForm = document.getElementById("surveyForm");
+    const surveyMessage = document.getElementById("surveyMessage");
+
+    surveyForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const fname = firstName.value;
+      const email = email.value;
+
+      surveyMessage.textContent = `✅ Thanks ${fname}! You'll receive updates at ${email}.`;
+      surveyForm.reset();
+    });
+  </script>
+
+</body>
+</html>
