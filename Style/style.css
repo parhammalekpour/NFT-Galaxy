@@ -244,4 +244,114 @@ img {
   width: 100%;
   padding: 10px 0;
   border-radius: 8px;
-  background...
+    background: #1F6FEB;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nft-btn:hover {
+  background: #1559c9;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background-color: #0b0e12;
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid #1a1f24;
+}
+
+.socials a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.socials a:hover {
+  color: var(--primary-color);
+}
+
+.footer p {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* ---------- About Page ---------- */
+.about, .poll, .survey {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about { background-color: #0f131a; }
+.poll { background-color: #12171f; border-top: 1px solid #1a1f24; border-bottom: 1px solid #1a1f24; }
+.survey { background-color: #0f131a; border-top: 1px solid #1a1f24; }
+
+.about h2, .poll h3, .survey h3 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.poll-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.poll-btn, .survey-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.poll-btn:hover:hover, .survey-btn:hover {
+  background-color: #1559c9;
+}
+
+.form-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.form-group input, .survey input[type="email"] {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #1a1f24;
+  background-color: #12171f;
+  color: var(--text-color);
+  font-size: 15px;
+  outline: none;
+  min-width: 200px;
+}
+
+.survey-message {
+  margin-top: 15px;
+  font-weight: 500;
+  color: #4ade;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .navbar { padding: 14px 20px; }
+  .nav-links { gap: 15px; font-size: 14px; }
+  .hero { padding: 60px 20px; }
+  .hero h2 { font-size: 26px; }
+  .hero p { font-size: 15px; }
+  .featured, .about, .poll, .survey { padding: 40px 20px; }
+  .nft-grid { grid-template-columns: 1fr; }
+  .form-group { flex-direction: column; }
+}
+
