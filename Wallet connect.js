@@ -5,7 +5,7 @@ const walletAddressText = document.getElementById('walletAddressText');
 
 async function connectWallet() {
     if (typeof window.ethereum === 'undefined') {
-        alert('Please install MetaMask to connect your wallet!');
+        alert('🦊 Please install MetaMask to connect your wallet!');
         return;
     }
 
@@ -18,13 +18,15 @@ async function connectWallet() {
         connectButton.classList.add('connected');
         connectButton.style.backgroundColor = '#6F42C1';
 
-        walletAddressText.textContent = shortAddress; 
-        walletDropdown.classList.remove('hidden');
+       walletAddressText.textContent = shortAddress; 
+
+        walletDropdown.classList.add('show');
 
         localStorage.setItem('walletAddress', walletAddress);
-        console.log('Wallet connected:', walletAddress);
+
+        console.log('✅ Wallet connected:', walletAddress);
     } catch (error) {
-        console.error('Connection rejected:', error);
+        console.error('❌ Connection rejected:', error);
     }
 }
 
@@ -39,21 +41,26 @@ connectButton.addEventListener('click', (e) => {
 
 logoutButton.addEventListener('click', () => {
     localStorage.removeItem('walletAddress');
+
     connectButton.textContent = 'Connect Wallet';
     connectButton.classList.remove('connected');
     connectButton.style.backgroundColor = '';
     walletDropdown.classList.add('hidden');
-    console.log('Wallet disconnected.');
+
+    console.log('🚪 Wallet disconnected.');
 });
 
 window.addEventListener('DOMContentLoaded', () => {
     const savedAddress = localStorage.getItem('walletAddress');
+
     if (savedAddress) {
         const shortAddress = savedAddress.substring(0, 6) + '...' + savedAddress.slice(-4);
+
         connectButton.textContent = shortAddress;
         connectButton.classList.add('connected');
         connectButton.style.backgroundColor = '#6F42C1';
-        walletAddressText.textContent = shortAddress;
+
+        walletAddressText.textContent = savedAddress;
     }
 });
 
