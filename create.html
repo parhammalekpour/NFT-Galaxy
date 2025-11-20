@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create NFT | NFT Galxe</title>
+  <link rel="stylesheet" href="./Style/style.css" />
+</head>
+<body>
+
+  <!-- ===== Header / Navbar ===== -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
+        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./marketplace.html">Marketplace</a></li>
+        <li><a href="./create.html" class="active-link">Create</a></li>
+        <li><a href="./profile.html">Profile</a></li>
+        <li><a href="./About Us.html">About Us</a></li>
+      </ul>
+
+      <div class="wallet-menu">
+        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+
+        <div id="walletDropdown" class="wallet-dropdown hidden">
+          <p id="walletAddressText">Not connected</p>
+          <button id="logoutWallet" class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <main class="create-main">
+
+    <!-- Create NFT Form -->
+    <section class="create-section">
+      <h2>Create New NFT</h2>
+      <p class="create-subtitle">
+        Upload your artwork, set details, and sign with your wallet to list your NFT.
+      </p>
+
+      <form id="createNftForm" class="create-form">
+
+        <!-- Image Upload -->
+        <div class="form-block">
+          <label for="nftImage" class="form-label">NFT Image</label>
+          <div class="image-upload-wrapper">
+            <input type="file" id="nftImage" accept="image/*" required />
+            <p class="image-hint">PNG, JPG, GIF – Max size depends on your hosting.</p>
+          </div>
+
+          <div class="image-preview" id="imagePreview">
+            <span class="image-preview-placeholder">Image preview will appear here</span>
+            <img id="previewImg" alt="NFT Preview" />
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-block">
+          <label for="nftName" class="form-label">Name</label>
+          <input type="text" id="nftName" class="text-input" placeholder="e.g. Galactic Penguin #01" required />
+        </div>
+
+        <!-- Description -->
+        <div class="form-block">
+          <label for="nftDescription" class="form-label">Description</label>
+          <textarea
+            id="nftDescription"
+            class="textarea-input"
+            rows="4"
+            placeholder="Describe your NFT and its story..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Chain & Price Row -->
+        <div class="form-row">
+          <div class="form-block">
+            <label for="nftChain" class="form-label">Chain</label>
+            <select id="nftChain" class="select-input" required>
+              <option value="">Select chain</option>
+              <option value="Ethereum">Ethereum</option>
+              <option value="Polygon">Polygon</option>
+              <option value="Base">Base</option>
+              <option value="BSC">Binance Smart Chain</option>
+            </select>
+          </div>
+
+          <div class="form-block">
+            <label for="nftPrice" class="form-label">Price</label>
+            <div class="price-wrapper">
+              <input
+                type="number"
+                id="nftPrice"
+                class="text-input"
+                min="0"
+                step="0.0001"
+                placeholder="0.05"
+                required
+              />
+              <select id="nftCurrency" class="select-input currency-select">
+                <option value="ETH">ETH</option>
+                <option value="MATIC">MATIC</option>
+                <option value="BNB">BNB</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Put For Sale Switch -->
+        <div class="form-block sale-toggle-block">
+          <label class="switch-label">
+            <input type="checkbox" id="putForSale" checked />
+            <span class="switch-slider"></span>
+            <span class="switch-text">Put this NFT up for sale immediately</span>
+          </label>
+        </div>
+
+        <!-- Status + Submit -->
+        <div class="form-actions">
+          <button type="submit" class="create-submit-btn">Create & Sign</button>
+          <p id="createStatus" class="create-status"></p>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Created NFTs Preview List -->
+    <section class="created-list-section">
+      <h3>Your Created NFTs (Local Preview)</h3>
+      <p class="created-list-subtitle">
+        These NFTs are stored locally in your browser for demo purposes.
+      </p>
+
+      <div id="createdNftList" class="created-nft-grid">
+        <!-- New NFTs will appear here via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="socials">
+      <a href="#">Twitter</a>
+      <a href="#">Discord</a>
+      <a href="#">Instagram</a>
+    </div>
+    <p>© 2025 NFT Galxe. All rights reserved.</p>
+  </footer>
+
+  <script src="./Wallet connect.js"></script>
+  <script src="./create.js"></script>
+</body>
+</html>
