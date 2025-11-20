@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | NFT Galxe</title>
+  <link rel="stylesheet" href="./Style/style.css" />
+  <link rel="stylesheet" href="./Style/profile.css" />
+</head>
+<body>
+
+  <!-- ===== Header / Navbar ===== -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
+        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./marketplace.html">Marketplace</a></li>
+        <li><a href="./create.html">Create</a></li>
+        <li><a href="./profile.html" class="active-link">Profile</a></li>
+        <li><a href="./About Us.html">About Us</a></li>
+      </ul>
+
+      <div class="wallet-menu">
+        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+
+        <div id="walletDropdown" class="wallet-dropdown hidden">
+          <p id="walletAddressText">Not connected</p>
+          <button id="logoutWallet" class="logout-btn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <main class="profile-main">
+
+    <!-- Profile Left Column: Edit Profile -->
+    <section class="profile-section">
+      <h2>Your Profile</h2>
+      <p class="profile-subtitle">Customize how you appear in NFT Galxe.</p>
+
+      <form id="profileForm" class="profile-form">
+
+        <!-- Profile Picture -->
+        <div class="profile-block">
+          <label class="form-label">Profile Picture</label>
+          <div class="profile-avatar-wrapper">
+            <label for="profileImage" class="avatar-upload-label">
+              <span>Change</span>
+            </label>
+            <input type="file" id="profileImage" accept="image/*" hidden />
+            <div class="avatar-preview" id="avatarPreview">
+              <span class="avatar-initials" id="avatarInitials">NG</span>
+              <img id="avatarImg" alt="Profile Avatar" />
+            </div>
+          </div>
+          <p class="image-hint">PNG, JPG, GIF – stored locally as your profile avatar.</p>
+        </div>
+
+        <!-- Name -->
+        <div class="profile-block">
+          <label for="profileName" class="form-label">Display Name</label>
+          <input
+            type="text"
+            id="profileName"
+            class="text-input"
+            placeholder="e.g. Galactic Penguin"
+            required
+          />
+        </div>
+
+        <!-- About Me -->
+        <div class="profile-block">
+          <label for="profileAbout" class="form-label">About Me</label>
+          <textarea
+            id="profileAbout"
+            class="textarea-input"
+            rows="4"
+            placeholder="Tell the world about your NFT journey..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Wallet Address Display -->
+        <div class="profile-block">
+          <label class="form-label">Wallet Address</label>
+          <p id="profileWalletAddress" class="profile-wallet-display">Not connected</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="profile-actions">
+          <button type="submit" class="profile-save-btn">Save Profile</button>
+          <button type="button" id="deleteAccountBtn" class="profile-delete-btn">
+            Delete Account
+          </button>
+          <p id="profileStatus" class="profile-status"></p>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Right Column: NFTs For Sale -->
+    <section class="profile-nft-section">
+      <h3>NFTs You Put For Sale</h3>
+      <p class="profile-nft-subtitle">
+        These NFTs come from your created items that are marked as "For sale".
+      </p>
+
+      <div id="profileNftList" class="profile-nft-grid">
+        <!-- NFTs will be rendered here from localStorage -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="socials">
+      <a href="#">Twitter</a>
+      <a href="#">Discord</a>
+      <a href="#">Instagram</a>
+    </div>
+    <p>© 2025 NFT Galxe. All rights reserved.</p>
+  </footer>
+
+  <!-- Existing wallet connect logic -->
+  <script src="./Wallet connect.js"></script>
+  <!-- Profile-specific logic -->
+  <script src="./profile.js"></script>
+</body>
+</html>
