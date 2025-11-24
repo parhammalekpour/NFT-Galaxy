@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us | NFT Galxe</title>
+  <title>درباره ما | NFT گلکسی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./Style/style.css" />
 </head>
 
@@ -14,24 +15,24 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
-        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
       <ul class="nav-links">
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="#">Marketplace</a></li>
-        <li><a href="./create.html">Collections</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="./About Us.html">About Us</a></li>
+        <li><a href="./index.html">خانه</a></li>
+        <li><a href="#">بازار</a></li>
+        <li><a href="./create.html">مجموعه‌ها</a></li>
+        <li><a href="./profile.html">پروفایل</a></li>
+        <li><a href="./About Us.html">درباره ما</a></li>
       </ul>
 
       <div class="wallet-menu">
-        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+        <button id="connectWallet" class="wallet-btn">اتصال کیف پول</button>
 
         <div id="walletDropdown" class="wallet-dropdown hidden">
-          <p id="walletAddressText">Not connected</p>
-          <button id="logoutWallet" class="logout-btn">Logout</button>
+          <p id="walletAddressText">اتصال نشده</p>
+          <button id="logoutWallet" class="logout-btn">خروج</button>
         </div>
       </div>
     </nav>
@@ -43,23 +44,23 @@
     <!-- About -->
     <section class="about">
       <article class="about-container">
-        <h2>What Are NFTs?</h2>
+        <h2>NFTها چیستند؟</h2>
         <p>
-          NFTs (Non-Fungible Tokens) are unique digital assets stored on a blockchain...
+          NFTها (توکن‌های غیرقابل تعویض) دارایی‌های دیجیتال منحصربه‌فردی هستند که روی بلاک‌چین ذخیره می‌شوند...
         </p>
         <p>
-          In the NFT Galxe marketplace, artists and collectors come together...
+          در بازار NFT گلکسی، هنرمندان و کلکسیونرها با هم جمع می‌شوند...
         </p>
       </article>
     </section>
 
     <!-- Poll -->
     <section class="poll">
-      <h3>🗳️ Do You Currently Own Any NFTs?</h3>
+      <h3>🗳️ آیا در حال حاضر NFT دارید؟</h3>
 
       <div class="poll-options">
-        <button class="poll-btn" data-answer="yes">Yes, I do!</button>
-        <button class="poll-btn" data-answer="no">Not yet</button>
+        <button class="poll-btn" data-answer="yes">بله، دارم!</button>
+        <button class="poll-btn" data-answer="no">هنوز نه</button>
       </div>
 
       <p id="poll-result"></p>
@@ -68,18 +69,18 @@
     <!-- Survey -->
     <section class="survey">
       <article class="survey-container">
-        <h3>📩 Stay Updated!</h3>
-        <p>Enter your information to receive updates.</p>
+        <h3>📩 بروز بمانید!</h3>
+        <p>اطلاعات خود را وارد کنید تا بروزرسانی‌ها را دریافت کنید.</p>
 
         <form id="surveyForm">
           <div class="form-group">
-            <input type="text" id="firstName" placeholder="First Name" required>
-            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="text" id="firstName" placeholder="نام" required>
+            <input type="text" id="lastName" placeholder="نام خانوادگی" required>
           </div>
 
-          <input type="email" id="email" placeholder="Email Address" required>
+          <input type="email" id="email" placeholder="آدرس ایمیل" required>
 
-          <button type="submit" class="survey-btn">Submit</button>
+          <button type="submit" class="survey-btn">ارسال</button>
         </form>
 
         <p id="surveyMessage" class="survey-message"></p>
@@ -91,11 +92,11 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="socials">
-      <a href="#">Twitter</a>
-      <a href="#">Discord</a>
-      <a href="#">Instagram</a>
+      <a href="#">توئیتر</a>
+      <a href="#">دیسکورد</a>
+      <a href="#">اینستاگرام</a>
     </div>
-    <p>© 2025 NFT Galxe. All rights reserved.</p>
+    <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
   </footer>
 
   <script src="./Wallet connect.js"></script>
@@ -109,24 +110,27 @@
       btn.addEventListener("click", () => {
         pollResult.textContent =
           btn.dataset.answer === "yes"
-            ? "🔥 Awesome! You're part of the NFT revolution."
-            : "🚀 No worries! Explore the marketplace and start your journey!";
+            ? "🔥 عالی! شما بخشی از انقلاب NFT هستید."
+            : "🚀 مشکلی نیست! بازار را کاوش کنید و سفر خود را شروع کنید!";
       });
     });
 
-    // --- Survey Form ---
-    const surveyForm = document.getElementById("surveyForm");
-    const surveyMessage = document.getElementById("surveyMessage");
+  const surveyForm = document.getElementById("surveyForm");
+  const surveyMessage = document.getElementById("surveyMessage");
 
-    surveyForm.addEventListener("submit", e => {
-      e.preventDefault();
-      const fname = firstName.value;
-      const email = email.value;
+  const firstNameInput = document.getElementById("firstName");
+  const emailInput = document.getElementById("email");
 
-      surveyMessage.textContent = `✅ Thanks ${fname}! You'll receive updates at ${email}.`;
-      surveyForm.reset();
-    });
-  </script>
+  surveyForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const fname = firstNameInput.value;
+    const email = emailInput.value;
+
+    surveyMessage.textContent = `✅ ممنون ${fname}! بروزرسانی‌ها را در ${email} دریافت خواهید کرد.`;
+    surveyForm.reset();
+  });
+</script>
 
 </body>
 </html>
