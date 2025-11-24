@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create NFT | NFT Galxe</title>
+  <title>ایجاد NFT | NFT گلکسی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./Style/style.css" />
 </head>
 <body>
@@ -12,24 +13,24 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
-        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+        <img src="/Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
       <ul class="nav-links">
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="./marketplace.html">Marketplace</a></li>
-        <li><a href="./create.html" class="active-link">Create</a></li>
-        <li><a href="./profile.html">Profile</a></li>
-        <li><a href="./About Us.html">About Us</a></li>
+        <li><a href="./index.html">خانه</a></li>
+        <li><a href="./marketplace.html">بازار</a></li>
+        <li><a href="./create.html" class="active-link">ایجاد</a></li>
+        <li><a href="./profile.html">پروفایل</a></li>
+        <li><a href="./About Us.html">درباره ما</a></li>
       </ul>
 
       <div class="wallet-menu">
-        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+        <button id="connectWallet" class="wallet-btn">اتصال کیف پول</button>
 
         <div id="walletDropdown" class="wallet-dropdown hidden">
-          <p id="walletAddressText">Not connected</p>
-          <button id="logoutWallet" class="logout-btn">Logout</button>
+          <p id="walletAddressText">اتصال نشده</p>
+          <button id="logoutWallet" class="logout-btn">خروج</button>
         </div>
       </div>
     </nav>
@@ -40,41 +41,41 @@
 
     <!-- Create NFT Form -->
     <section class="create-section">
-      <h2>Create New NFT</h2>
+      <h2>ایجاد NFT جدید</h2>
       <p class="create-subtitle">
-        Upload your artwork, set details, and sign with your wallet to list your NFT.
+        اثر هنری خود را آپلود کنید، جزئیات را تنظیم کنید و با کیف پول خود امضا کنید تا NFT خود را لیست کنید.
       </p>
 
       <form id="createNftForm" class="create-form">
 
         <!-- Image Upload -->
         <div class="form-block">
-          <label for="nftImage" class="form-label">NFT Image</label>
+          <label for="nftImage" class="form-label">تصویر NFT</label>
           <div class="image-upload-wrapper">
             <input type="file" id="nftImage" accept="image/*" required />
-            <p class="image-hint">PNG, JPG, GIF – Max size depends on your hosting.</p>
+            <p class="image-hint">PNG, JPG, GIF – حداکثر اندازه بستگی به هاستینگ شما دارد.</p>
           </div>
 
           <div class="image-preview" id="imagePreview">
-            <span class="image-preview-placeholder">Image preview will appear here</span>
-            <img id="previewImg" alt="NFT Preview" />
+            <span class="image-preview-placeholder">پیش‌نمایش تصویر اینجا ظاهر می‌شود</span>
+            <img id="previewImg" alt="پیش‌نمایش NFT" />
           </div>
         </div>
 
         <!-- Name -->
         <div class="form-block">
-          <label for="nftName" class="form-label">Name</label>
-          <input type="text" id="nftName" class="text-input" placeholder="e.g. Galactic Penguin #01" required />
+          <label for="nftName" class="form-label">نام</label>
+          <input type="text" id="nftName" class="text-input" placeholder="مثلاً پنگوئن کهکشانی #01" required />
         </div>
 
         <!-- Description -->
         <div class="form-block">
-          <label for="nftDescription" class="form-label">Description</label>
+          <label for="nftDescription" class="form-label">توضیحات</label>
           <textarea
             id="nftDescription"
             class="textarea-input"
             rows="4"
-            placeholder="Describe your NFT and its story..."
+            placeholder="NFT خود و داستان آن را توصیف کنید..."
             required
           ></textarea>
         </div>
@@ -82,18 +83,18 @@
         <!-- Chain & Price Row -->
         <div class="form-row">
           <div class="form-block">
-            <label for="nftChain" class="form-label">Chain</label>
+            <label for="nftChain" class="form-label">بلاک‌چین</label>
             <select id="nftChain" class="select-input" required>
-              <option value="">Select chain</option>
-              <option value="Ethereum">Ethereum</option>
-              <option value="Polygon">Polygon</option>
-              <option value="Base">Base</option>
-              <option value="BSC">Binance Smart Chain</option>
+              <option value="">بلاک‌چین را انتخاب کنید</option>
+              <option value="Ethereum">اتریوم</option>
+              <option value="Polygon">پالیگان</option>
+              <option value="Base">بیس</option>
+              <option value="BSC">بایننس اسمارت چین</option>
             </select>
           </div>
 
           <div class="form-block">
-            <label for="nftPrice" class="form-label">Price</label>
+            <label for="nftPrice" class="form-label">قیمت</label>
             <div class="price-wrapper">
               <input
                 type="number"
@@ -118,13 +119,13 @@
           <label class="switch-label">
             <input type="checkbox" id="putForSale" checked />
             <span class="switch-slider"></span>
-            <span class="switch-text">Put this NFT up for sale immediately</span>
+            <span class="switch-text">این NFT را بلافاصله برای فروش بگذارید</span>
           </label>
         </div>
 
         <!-- Status + Submit -->
         <div class="form-actions">
-          <button type="submit" class="create-submit-btn">Create & Sign</button>
+          <button type="submit" class="create-submit-btn">ایجاد و امضا</button>
           <p id="createStatus" class="create-status"></p>
         </div>
 
@@ -133,13 +134,13 @@
 
     <!-- Created NFTs Preview List -->
     <section class="created-list-section">
-      <h3>Your Created NFTs (Local Preview)</h3>
+      <h3>NFTهای ایجاد‌شده شما (پیش‌نمایش محلی)</h3>
       <p class="created-list-subtitle">
-        These NFTs are stored locally in your browser for demo purposes.
+        این NFTها برای اهداف دمو به صورت محلی در مرورگر شما ذخیره می‌شوند.
       </p>
 
       <div id="createdNftList" class="created-nft-grid">
-        <!-- New NFTs will appear here via JS -->
+        <!-- NFTهای جدید از طریق JS اینجا ظاهر می‌شوند -->
       </div>
     </section>
 
@@ -148,11 +149,11 @@
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="socials">
-      <a href="#">Twitter</a>
-      <a href="#">Discord</a>
-      <a href="#">Instagram</a>
+      <a href="#">توئیتر</a>
+      <a href="#">دیسکورد</a>
+      <a href="#">اینستاگرام</a>
     </div>
-    <p>© 2025 NFT Galxe. All rights reserved.</p>
+    <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
   </footer>
 
   <script src="./Wallet connect.js"></script>
