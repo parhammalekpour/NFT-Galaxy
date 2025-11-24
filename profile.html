@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile | NFT Galxe</title>
+  <title>پروفایل | NFT گلکسی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./Style/style.css" />
-  <link rel="stylesheet" href="./Style/profile.css" />
 </head>
 <body>
 
@@ -13,24 +13,24 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="Logo" />
-        <h1 class="brand-name">NFT <span>Galxe</span></h1>
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
       <ul class="nav-links">
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="./marketplace.html">Marketplace</a></li>
-        <li><a href="./create.html">Create</a></li>
-        <li><a href="./profile.html" class="active-link">Profile</a></li>
-        <li><a href="./About Us.html">About Us</a></li>
+        <li><a href="./index.html">خانه</a></li>
+        <li><a href="./marketplace.html">بازار</a></li>
+        <li><a href="./create.html">ایجاد</a></li>
+        <li><a href="./profile.html" class="active-link">پروفایل</a></li>
+        <li><a href="./About Us.html">درباره ما</a></li>
       </ul>
 
       <div class="wallet-menu">
-        <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+        <button id="connectWallet" class="wallet-btn">اتصال کیف پول</button>
 
         <div id="walletDropdown" class="wallet-dropdown hidden">
-          <p id="walletAddressText">Not connected</p>
-          <button id="logoutWallet" class="logout-btn">Logout</button>
+          <p id="walletAddressText">اتصال نشده</p>
+          <button id="logoutWallet" class="logout-btn">خروج</button>
         </div>
       </div>
     </nav>
@@ -41,63 +41,61 @@
 
     <!-- Profile Left Column: Edit Profile -->
     <section class="profile-section">
-      <h2>Your Profile</h2>
-      <p class="profile-subtitle">Customize how you appear in NFT Galxe.</p>
+      <h2>پروفایل شما</h2>
+      <p class="profile-subtitle">نحوه ظاهر شدن شما در NFT گلکسی را سفارشی کنید.</p>
 
       <form id="profileForm" class="profile-form">
 
         <!-- Profile Picture -->
         <div class="profile-block">
-          <label class="form-label">Profile Picture</label>
+          <label class="form-label">عکس پروفایل</label>
           <div class="profile-avatar-wrapper">
             <label for="profileImage" class="avatar-upload-label">
-              <span>Change</span>
+              <span>تغییر</span>
             </label>
             <input type="file" id="profileImage" accept="image/*" hidden />
             <div class="avatar-preview" id="avatarPreview">
               <span class="avatar-initials" id="avatarInitials">NG</span>
-              <img id="avatarImg" alt="Profile Avatar" />
+              <img id="avatarImg" alt="آواتار پروفایل" />
             </div>
           </div>
-          <p class="image-hint">PNG, JPG, GIF – stored locally as your profile avatar.</p>
+          <p class="image-hint">PNG, JPG, GIF – به صورت محلی به عنوان آواتار پروفایل ذخیره می‌شود.</p>
         </div>
 
         <!-- Name -->
         <div class="profile-block">
-          <label for="profileName" class="form-label">Display Name</label>
+          <label for="profileName" class="form-label">نام نمایشی</label>
           <input
             type="text"
             id="profileName"
             class="text-input"
-            placeholder="e.g. Galactic Penguin"
+            placeholder="مثلاً پنگوئن کهکشانی"
             required
           />
         </div>
 
         <!-- About Me -->
         <div class="profile-block">
-          <label for="profileAbout" class="form-label">About Me</label>
+          <label for="profileAbout" class="form-label">درباره من</label>
           <textarea
             id="profileAbout"
             class="textarea-input"
             rows="4"
-            placeholder="Tell the world about your NFT journey..."
+            placeholder="داستان سفر NFT خود را به جهان بگویید..."
             required
           ></textarea>
         </div>
 
         <!-- Wallet Address Display -->
         <div class="profile-block">
-          <label class="form-label">Wallet Address</label>
-          <p id="profileWalletAddress" class="profile-wallet-display">Not connected</p>
+          <label class="form-label">آدرس کیف پول</label>
+          <p id="profileWalletAddress" class="profile-wallet-display">اتصال نشده</p>
         </div>
 
         <!-- Actions -->
         <div class="profile-actions">
-          <button type="submit" class="profile-save-btn">Save Profile</button>
-          <button type="button" id="deleteAccountBtn" class="profile-delete-btn">
-            Delete Account
-          </button>
+          <button type="submit" class="profile-save-btn">ذخیره پروفایل</button>
+          <button type="button" id="deleteAccountBtn" class="profile-delete-btn"> حذف حساب</button>
           <p id="profileStatus" class="profile-status"></p>
         </div>
 
@@ -106,13 +104,13 @@
 
     <!-- Right Column: NFTs For Sale -->
     <section class="profile-nft-section">
-      <h3>NFTs You Put For Sale</h3>
+      <h3>NFTهایی که برای فروش گذاشته‌اید</h3>
       <p class="profile-nft-subtitle">
-        These NFTs come from your created items that are marked as "For sale".
+        این NFTها از موارد ایجاد‌شده شما که علامت "برای فروش" دارند، می‌آیند.
       </p>
 
       <div id="profileNftList" class="profile-nft-grid">
-        <!-- NFTs will be rendered here from localStorage -->
+        <!-- NFTها از localStorage اینجا رندر می‌شوند -->
       </div>
     </section>
 
@@ -121,11 +119,11 @@
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="socials">
-      <a href="#">Twitter</a>
-      <a href="#">Discord</a>
-      <a href="#">Instagram</a>
+      <a href="#">توئیتر</a>
+      <a href="#">دیسکورد</a>
+      <a href="#">اینستاگرام</a>
     </div>
-    <p>© 2025 NFT Galxe. All rights reserved.</p>
+    <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
   </footer>
 
   <!-- Existing wallet connect logic -->
