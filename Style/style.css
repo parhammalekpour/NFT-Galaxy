@@ -1,3 +1,5 @@
+/* لینک فونت در HTML اضافه شده، اینجا فقط استایل‌ها */
+
 /* ---------- Color Variables ---------- */
 :root {
   --primary-color: #1F6FEB;
@@ -9,9 +11,22 @@
 /* ---------- Global Styles ---------- */
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Vazirmatn', sans-serif; /* فونت خفن فارسی */
   background-color: var(--background-color);
   color: var(--text-color);
+  direction: rtl; /* راست به چپ برای فارسی */
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700; /* بولد برای عناوین */
+  color: var(--primary-color);
+}
+
+p {
+  font-weight: 400;
+  color: #ccc;
 }
 
 /* ---------- Navbar ---------- */
@@ -58,6 +73,7 @@ body {
   padding: 0;
 }
 
+
 .nav-links li {
   display: inline-block;
 }
@@ -72,7 +88,6 @@ body {
 .nav-links a:hover {
   color: var(--primary-color);
 }
-
 /* ---- Wallet ---- */
 .wallet-menu {
   position: relative;
@@ -94,17 +109,24 @@ body {
   background-color: #1559c9;
 }
 
-/* ---- Dropdown ---- */
 .wallet-dropdown {
   position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: #12171f;
+  top: calc(100% + 10px);
+  inset-inline-end: 0;
+  max-width: 240px;
+  background: #12171f;
   border: 1px solid #1a1f24;
   border-radius: 10px;
   padding: 15px;
-  width: 220px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .wallet-dropdown {
+    inset-inline-end: 50%;
+    transform: translateX(50%);
+  }
 }
 
 .wallet-dropdown.hidden {
@@ -286,7 +308,7 @@ body {
 
 .about-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto; 
 }
 
 .about h2 {
@@ -929,7 +951,7 @@ body {
   background-color: #12171f;
   border: 1px solid #1a1f24;
   font-size: 13px;
-  color: #b0b9c5;
+  color: #0c5ac1;
   word-break: break-all;
 }
 
@@ -964,13 +986,13 @@ body {
 
 .profile-delete-btn {
   align-self: flex-start;
-  background-color: #ff4d4d;
+  background-color: red;
   border: none;
   color: #fff;
-  padding: 9px 18px;
+  padding: 10px 20px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.25s, transform 0.08s;
 }
