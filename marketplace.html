@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بازار NFT | NFT گلکسی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./Style/style.css" />
+</head>
+<body>
+
+  <!-- ===== Header / Navbar ===== -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <h1 class="brand-name">NFT <span>گلکسی</span></h1>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="./index.html">خانه</a></li>
+        <li><a href="./marketplace.html" class="active-link">بازار</a></li>
+        <li><a href="./create.html">مجموعه‌ها</a></li>
+        <li><a href="./profile.html">پروفایل</a></li>
+        <li><a href="./About Us.html">درباره ما</a></li>
+      </ul>
+
+      <div class="wallet-menu">
+        <button id="connectWallet" class="wallet-btn">اتصال کیف پول</button>
+
+        <div id="walletDropdown" class="wallet-dropdown hidden">
+          <p id="walletAddressText">اتصال نشده</p>
+          <button id="logoutWallet" class="logout-btn">خروج</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <main class="marketplace-main">
+
+    <!-- Top Bar: Search + Filters -->
+    <section class="marketplace-header">
+      <div class="marketplace-header-content">
+        <h2>کاوش در بازار</h2>
+        <p class="marketplace-subtitle">هزاران NFT منحصربه‌فرد را کشف و خریداری کنید</p>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="marketplace-search">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="جستجوی NFT‌ها، مجموعه‌ها یا سازندگان..."
+        />
+        <button class="search-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Filter Sidebar + NFT Grid Container -->
+    <section class="marketplace-content">
+      
+      <!-- Left: Filters -->
+      <aside class="marketplace-filters">
+        <h3 class="filter-title">فیلترها</h3>
+
+        <!-- Status Filter -->
+        <div class="filter-block">
+          <h4 class="filter-label">وضعیت</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="status" value="forSale" checked />
+            <span>برای فروش</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="status" value="notForSale" />
+            <span>برای فروش نیست</span>
+          </label>
+        </div>
+
+        <!-- Blockchain Filter -->
+        <div class="filter-block">
+          <h4 class="filter-label">بلاک‌چین</h4>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="chain" value="Ethereum" checked />
+            <span>اتریوم</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="chain" value="Polygon" checked />
+            <span>پالیگان</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="chain" value="Base" checked />
+            <span>بیس</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="chain" value="BSC" checked />
+            <span>بایننس اسمارت چین</span>
+          </label>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-block">
+          <h4 class="filter-label">محدوده قیمت (ETH)</h4>
+          <div class="price-range-inputs">
+            <input type="number" id="minPrice" class="price-input" placeholder="حداقل" min="0" step="0.01" />
+            <span class="price-separator">تا</span>
+            <input type="number" id="maxPrice" class="price-input" placeholder="حداکثر" min="0" step="0.01" />
+          </div>
+        </div>
+
+        <!-- Sort By -->
+        <div class="filter-block">
+          <h4 class="filter-label">مرتب‌سازی</h4>
+          <select id="sortBy" class="sort-select">
+            <option value="newest">جدیدترین</option>
+            <option value="oldest">قدیمی‌ترین</option>
+            <option value="price-low">قیمت: کم به زیاد</option>
+            <option value="price-high">قیمت: زیاد به کم</option>
+          </select>
+        </div>
+
+        <!-- Apply Filters Button -->
+        <button id="applyFilters" class="apply-filters-btn">اعمال فیلترها</button>
+        <button id="clearFilters" class="clear-filters-btn">پاک کردن فیلترها</button>
+      </aside>
+
+      <!-- Right: NFT Grid -->
+      <div class="marketplace-nfts">
+        <div class="marketplace-stats">
+          <p id="nftCount" class="nft-count">در حال بارگذاری...</p>
+        </div>
+
+        <div id="marketplaceGrid" class="marketplace-grid">
+          <!-- NFT Cards will be rendered here by JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="marketplace-empty hidden">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <h3>NFT یافت نشد</h3>
+          <p>فیلترهای خود را تغییر دهید یا NFT جدید ایجاد کنید</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="socials">
+      <a href="#">توئیتر</a>
+      <a href="#">دیسکورد</a>
+      <a href="#">اینستاگرام</a>
+    </div>
+    <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
+  </footer>
+
+  <!-- NFT Detail Modal -->
+  <div id="nftModal" class="nft-modal hidden">
+    <div class="nft-modal-overlay"></div>
+    <div class="nft-modal-content">
+      <button class="nft-modal-close">&times;</button>
+      
+      <div class="nft-modal-body">
+        <div class="nft-modal-image">
+          <img id="modalImage" src="" alt="NFT" />
+        </div>
+        
+        <div class="nft-modal-info">
+          <h2 id="modalName"></h2>
+          
+          <div class="modal-creator">
+            <span class="modal-label">سازنده:</span>
+            <span id="modalCreator"></span>
+          </div>
+
+          <div class="modal-chain">
+            <span class="modal-label">بلاک‌چین:</span>
+            <span id="modalChain"></span>
+          </div>
+
+          <div class="modal-description">
+            <h4>توضیحات</h4>
+            <p id="modalDescription"></p>
+          </div>
+
+          <div class="modal-price-section">
+            <div class="modal-price-box">
+              <span class="modal-price-label">قیمت فعلی</span>
+              <span id="modalPrice" class="modal-price-value"></span>
+            </div>
+            
+            <button id="buyNowBtn" class="modal-buy-btn">خرید الان</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./Wallet connect.js"></script>
+  <script src="./marketplace.js"></script>
+</body>
+</html>
