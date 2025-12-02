@@ -1,89 +1,208 @@
-const connectButton = document.getElementById('connectWallet');
-const walletDropdown = document.getElementById('walletDropdown');
-const logoutButton = document.getElementById('logoutWallet');
-const walletAddressText = document.getElementById('walletAddressText');
+/* nft-app.js - Consolidated & fixed version */
 
-async function connectWallet() {
-    if (typeof window.ethereum === 'undefined') {
-        alert('🦊 Please install MetaMask to connect your wallet!');
-        return;
-    }
+/* -------------------------
+   Helpers (single source)
+   ------------------------- */
 
-    try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const walletAddress = accounts[0];
-        const shortAddress = walletAddress.substring(0, 6) + '...' + walletAddress.slice(-4);
+const STORAGE_KEY_NFTS = 'createdNfts';
+const STORAGE_KEY_PROFILE = 'userProfile';
+const STORAGE_KEY_WALLET = 'walletAddress';
 
-        connectButton.textContent = shortAddress;
-        connectButton.classList.add('connected');
-        connectButton.style.backgroundColor = '#6F42C1';
-
-       walletAddressText.textContent = shortAddress; 
-
-        walletDropdown.classList.add('show');
-
-        localStorage.setItem('walletAddress', walletAddress);
-
-        console.log('✅ Wallet connected:', walletAddress);
-    } catch (error) {
-        console.error('❌ Connection rejected:', error);
-    }
+function shortAddress(addr) {
+  if (!addr || typeof addr !== 'string') return '';
+  if (addr.length < 10) return addr;
+  return addr.substring(0, 6) + '...' + addr.slice(-4);
 }
 
-connectButton.addEventListener('click', (e) => {
-    if (connectButton.classList.contains('connected')) {
-        e.stopPropagation();
-        walletDropdown.classList.toggle('hidden');
-    } else {
-        connectWallet();
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = (e) => reject(e);
+    reader.readAsDataURL(file);
+  });
+}
+
+function safeGet(id) {
+  return document.getElementById(id) || null;
+}
+
+/* -------------------------
+   Wallet connect / UI
+   ------------------------- */
+
+const connectButton = safeGet('connectWallet');
+const walletDropdown = safeGet('walletDropdown');
+const logoutButton = safeGet('logoutWallet');
+const walletAddressText = safeGet('walletAddressText');
+
+async function connectWallet() {
+  if (typeof window.ethereum === 'undefined') {
+    alert('🦊 Please install MetaMask to connect your wallet!');
+    return null;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const walletAddress = accounts && accounts[0];
+    if (!walletAddress) throw new Error('No accounts returned');
+
+    const shortAddr = shortAddress(walletAddress);
+    if (connectButton) {
+      connectButton.textContent = shortAddr;
+      connectButton.classList.add('connected');
+      connectButton.style.backgroundColor = '#6F42C1';
     }
-});
+    if (walletAddressText) walletAddressText.textContent = shortAddr;
+    if (walletDropdown) walletDropdown.classList.remove('hidden');
 
-logoutButton.addEventListener('click', () => {
-    localStorage.removeItem('walletAddress');
+    localStorage.setItem(STORAGE_KEY_WALLET, walletAddress);
+    console.log('✅ Wallet connected:', walletAddress);
+    return walletAddress;
+  } catch (error) {
+    console.error('❌ Connection rejected:', error);
+    return null;
+  }
+}
 
+function disconnectWalletUI() {
+  localStorage.removeItem(STORAGE_KEY_WALLET);
+  if (connectButton) {
     connectButton.textContent = 'Connect Wallet';
     connectButton.classList.remove('connected');
     connectButton.style.backgroundColor = '';
+  }
+  if (walletAddressText) walletAddressText.textContent = '';
+  if (walletDropdown) {
     walletDropdown.classList.add('hidden');
+  }
+  console.log('🚪 Wallet disconnected.');
+}
 
-    console.log('🚪 Wallet disconnected.');
-});
+/* -------------------------
+   Sign helpers
+   ------------------------- */
 
-window.addEventListener('DOMContentLoaded', () => {
-    const savedAddress = localStorage.getItem('walletAddress');
+async function signCreateMessage(nftData) {
+  if (typeof window.ethereum === 'undefined') {
+    throw new Error('MetaMask is not installed.');
+  }
+  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  const address = accounts[0];
 
-    if (savedAddress) {
-        const shortAddress = savedAddress.substring(0, 6) + '...' + savedAddress.slice(-4);
+  const message = `
+NFT Galxe - Create NFT
 
-        connectButton.textContent = shortAddress;
-        connectButton.classList.add('connected');
-        connectButton.style.backgroundColor = '#6F42C1';
+Name: ${nftData.name}
+Chain: ${nftData.chain}
+Price: ${nftData.price} ${nftData.currency}
+For sale: ${nftData.forSale ? 'Yes' : 'No'}
 
-        walletAddressText.textContent = savedAddress;
-    }
-});
+By signing, you confirm this listing.
+  `.trim();
 
-window.addEventListener('click', (event) => {
-    if (!event.target.closest('.wallet-menu')) {
-        walletDropdown.classList.add('hidden');
-    }
-});
+  // personal_sign expects [message, address]
+  const signature = await window.ethereum.request({
+    method: 'personal_sign',
+    params: [message, address],
+  });
 
-// === Create NFT Page Logic ===
+  return { address, signature };
+}
 
-// Elements
-const createForm = document.getElementById('createNftForm');
-const imageInput = document.getElementById('nftImage');
-const previewContainer = document.getElementById('imagePreview');
-const previewImg = document.getElementById('previewImg');
-const statusEl = document.getElementById('createStatus');
-const createdNftList = document.getElementById('createdNftList');
+async function confirmDeleteWithWallet() {
+  if (typeof window.ethereum === 'undefined') {
+    throw new Error('MetaMask is not installed.');
+  }
 
-// ---------- Image Preview ----------
+  const storedWallet = localStorage.getItem(STORAGE_KEY_WALLET);
+  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  const currentAddress = accounts[0];
+
+  if (storedWallet && storedWallet.toLowerCase() !== currentAddress.toLowerCase()) {
+    throw new Error('Connected wallet does not match the profile wallet.');
+  }
+
+  const addressToUse = storedWallet || currentAddress;
+
+  const message = `
+NFT Galxe - Delete Account Confirmation
+
+Wallet: ${addressToUse}
+
+By signing this message, you confirm that you want to delete
+your profile, NFTs, and wallet data from this browser (local demo only).
+  `.trim();
+
+  const signature = await window.ethereum.request({
+    method: 'personal_sign',
+    params: [message, addressToUse],
+  });
+
+  return { address: addressToUse, signature };
+}
+
+/* -------------------------
+   Local storage helpers
+   ------------------------- */
+
+function loadCreatedNfts() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_NFTS);
+    if (!raw) return [];
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+function saveCreatedNfts(list) {
+  localStorage.setItem(STORAGE_KEY_NFTS, JSON.stringify(list));
+}
+
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PROFILE);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function saveProfile(profile) {
+  localStorage.setItem(STORAGE_KEY_PROFILE, JSON.stringify(profile));
+}
+
+/* -------------------------
+   Create NFT page logic
+   ------------------------- */
+
+const createForm = safeGet('createNftForm');
+const imageInput = safeGet('nftImage');
+const previewContainer = safeGet('imagePreview');
+const previewImg = safeGet('previewImg');
+const statusEl = safeGet('createStatus');
+const createdNftList = safeGet('createdNftList');
+
+function setStatus(message, type = '') {
+  if (!statusEl) return;
+  statusEl.textContent = message || '';
+  statusEl.classList.remove('success', 'error');
+  if (type) statusEl.classList.add(type);
+}
+
+function resetPreview() {
+  if (!previewContainer || !previewImg) return;
+  const placeholder = previewContainer.querySelector('.image-preview-placeholder');
+  if (placeholder) placeholder.style.display = 'block';
+  previewImg.src = '';
+  previewImg.style.display = 'none';
+}
+
 if (imageInput) {
   imageInput.addEventListener('change', () => {
-    const file = imageInput.files[0];
+    const file = imageInput.files && imageInput.files[0];
     if (!file) {
       resetPreview();
       return;
@@ -98,50 +217,19 @@ if (imageInput) {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      const placeholder = previewContainer.querySelector('.image-preview-placeholder');
+      const placeholder = previewContainer ? previewContainer.querySelector('.image-preview-placeholder') : null;
       if (placeholder) placeholder.style.display = 'none';
-
-      previewImg.src = e.target.result;
-      previewImg.style.display = 'block';
+      if (previewImg) {
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+      }
     };
     reader.readAsDataURL(file);
   });
 }
 
-function resetPreview() {
-  const placeholder = previewContainer.querySelector('.image-preview-placeholder');
-  if (placeholder) placeholder.style.display = 'block';
-  previewImg.src = '';
-  previewImg.style.display = 'none';
-}
-
-// ---------- Helper: Status text ----------
-function setStatus(message, type = '') {
-  if (!statusEl) return;
-  statusEl.textContent = message || '';
-  statusEl.classList.remove('success', 'error');
-  if (type) statusEl.classList.add(type);
-}
-
-// ---------- Local Storage Helpers ----------
-const STORAGE_KEY = 'createdNfts';
-
-function loadCreatedNfts() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-function saveCreatedNfts(list) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-}
-
-// ---------- Render created NFTs ----------
 function renderCreatedNfts() {
+  if (!createdNftList) return;
   const nfts = loadCreatedNfts();
   createdNftList.innerHTML = '';
 
@@ -172,11 +260,11 @@ function renderCreatedNfts() {
 
     const priceEl = document.createElement('span');
     priceEl.className = 'created-nft-price';
-    priceEl.textContent = `${nft.price} ${nft.currency}`;
+    priceEl.textContent = `${nft.price} ${nft.currency || ''}`;
 
     const descEl = document.createElement('p');
     descEl.className = 'created-nft-meta';
-    descEl.textContent = nft.description;
+    descEl.textContent = nft.description || '';
 
     card.appendChild(img);
     card.appendChild(nameEl);
@@ -188,68 +276,29 @@ function renderCreatedNfts() {
   });
 }
 
-function shortAddress(addr) {
-  if (!addr || addr.length < 10) return addr || '';
-  return addr.substring(0, 6) + '...' + addr.slice(-4);
-}
-
-// ---------- Wallet Sign Helper ----------
-async function signCreateMessage(nftData) {
-  if (typeof window.ethereum === 'undefined') {
-    throw new Error('MetaMask is not installed.');
-  }
-
-  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-  const address = accounts[0];
-
-  const message = `
-NFT Galxe - Create NFT
-
-Name: ${nftData.name}
-Chain: ${nftData.chain}
-Price: ${nftData.price} ${nftData.currency}
-For sale: ${nftData.forSale ? 'Yes' : 'No'}
-
-By signing, you confirm this listing.
-  `.trim();
-
-  const from = address;
-  const params = [message, from];
-
-  // Depending on wallet, this may be "personal_sign" or "eth_sign"
-  const signature = await window.ethereum.request({
-    method: 'personal_sign',
-    params: params,
-  });
-
-  return { address, signature };
-}
-
-// ---------- Form Submit ----------
 if (createForm) {
   createForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     setStatus('');
 
-    const file = imageInput.files[0];
+    const file = imageInput && imageInput.files && imageInput.files[0];
     if (!file) {
       setStatus('Please upload an image for your NFT.', 'error');
       return;
     }
 
-    const name = document.getElementById('nftName').value.trim();
-    const description = document.getElementById('nftDescription').value.trim();
-    const chain = document.getElementById('nftChain').value;
-    const price = document.getElementById('nftPrice').value;
-    const currency = document.getElementById('nftCurrency').value;
-    const forSale = document.getElementById('putForSale').checked;
+    const name = (safeGet('nftName') && safeGet('nftName').value.trim()) || '';
+    const description = (safeGet('nftDescription') && safeGet('nftDescription').value.trim()) || '';
+    const chain = (safeGet('nftChain') && safeGet('nftChain').value) || '';
+    const price = (safeGet('nftPrice') && safeGet('nftPrice').value) || '';
+    const currency = (safeGet('nftCurrency') && safeGet('nftCurrency').value) || '';
+    const forSale = (safeGet('putForSale') && safeGet('putForSale').checked) || false;
 
     if (!name || !description || !chain || !price) {
       setStatus('Please fill in all required fields.', 'error');
       return;
     }
 
-    // Check if any wallet is (or can be) connected
     if (typeof window.ethereum === 'undefined') {
       setStatus('MetaMask not found. Please install it and connect your wallet.', 'error');
       return;
@@ -258,10 +307,8 @@ if (createForm) {
     setStatus('Preparing NFT and requesting wallet signature...', '');
 
     try {
-      // Read image as Base64
       const imageData = await fileToBase64(file);
 
-      // Prepare NFT data
       const nftDraft = {
         name,
         description,
@@ -272,10 +319,8 @@ if (createForm) {
         imageData,
       };
 
-      // Ask wallet to sign
       const { address } = await signCreateMessage(nftDraft);
 
-      // Save to local storage
       const existing = loadCreatedNfts();
       existing.push({
         ...nftDraft,
@@ -284,12 +329,10 @@ if (createForm) {
       });
       saveCreatedNfts(existing);
 
-      // Re-render list
       renderCreatedNfts();
 
-      // Reset form
       createForm.reset();
-      imageInput.value = '';
+      if (imageInput) imageInput.value = '';
       resetPreview();
 
       setStatus('✅ NFT created and signed successfully (local demo).', 'success');
@@ -300,90 +343,21 @@ if (createForm) {
   });
 }
 
-// Helper: file -> base64 string
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => resolve(e.target.result);
-    reader.onerror = (e) => reject(e);
-    reader.readAsDataURL(file);
-  });
-}
-
-// ---------- On load ----------
-document.addEventListener('DOMContentLoaded', () => {
-  renderCreatedNfts();
-});
-
-// profile.js
-
-// profile.js
-
-// ----- Storage keys -----
-const PROFILE_STORAGE_KEY = 'userProfile';
-const NFT_STORAGE_KEY = 'createdNfts';
-const WALLET_STORAGE_KEY = 'walletAddress';
-
-// ---------- Small helpers ----------
+/* -------------------------
+   Profile logic
+   ------------------------- */
 
 function setProfileStatus(message, type = '') {
-  const profileStatusEl = document.getElementById('profileStatus');
+  const profileStatusEl = safeGet('profileStatus');
   if (!profileStatusEl) return;
   profileStatusEl.textContent = message || '';
   profileStatusEl.classList.remove('success', 'error');
   if (type) profileStatusEl.classList.add(type);
 }
 
-function shortAddress(addr) {
-  if (!addr || addr.length < 10) return addr || '';
-  return addr.substring(0, 6) + '...' + addr.slice(-4);
-}
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => resolve(e.target.result);
-    reader.onerror = (e) => reject(e);
-    reader.readAsDataURL(file);
-  });
-}
-
-// ---------- Local storage helpers ----------
-
-function loadProfile() {
-  try {
-    const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
-function saveProfile(profile) {
-  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
-}
-
-function loadCreatedNfts() {
-  try {
-    const raw = localStorage.getItem(NFT_STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-function getNftsForSale() {
-  const nfts = loadCreatedNfts();
-  return nfts.filter(nft => nft.forSale === true);
-}
-
-// ---------- UI: avatar, wallet, NFTs ----------
-
 function updateAvatar(profile) {
-  const avatarImg = document.getElementById('avatarImg');
-  const avatarInitials = document.getElementById('avatarInitials');
+  const avatarImg = safeGet('avatarImg');
+  const avatarInitials = safeGet('avatarInitials');
   if (!avatarImg || !avatarInitials) return;
 
   if (profile && profile.avatarData) {
@@ -404,15 +378,19 @@ function updateAvatar(profile) {
 }
 
 function updateWalletInProfile() {
-  const profileWalletAddressEl = document.getElementById('profileWalletAddress');
+  const profileWalletAddressEl = safeGet('profileWalletAddress');
   if (!profileWalletAddressEl) return;
+  const storedWallet = localStorage.getItem(STORAGE_KEY_WALLET);
+  profileWalletAddressEl.textContent = storedWallet ? shortAddress(storedWallet) : 'Not connected';
+}
 
-  const storedWallet = localStorage.getItem(WALLET_STORAGE_KEY);
-  profileWalletAddressEl.textContent = storedWallet || 'Not connected';
+function getNftsForSale() {
+  const nfts = loadCreatedNfts();
+  return nfts.filter(nft => nft.forSale === true);
 }
 
 function renderNftsForSale() {
-  const profileNftList = document.getElementById('profileNftList');
+  const profileNftList = safeGet('profileNftList');
   if (!profileNftList) return;
 
   const nfts = getNftsForSale();
@@ -444,7 +422,7 @@ function renderNftsForSale() {
 
     const priceEl = document.createElement('span');
     priceEl.className = 'profile-nft-price';
-    priceEl.textContent = `${nft.price} ${nft.currency}`;
+    priceEl.textContent = `${nft.price} ${nft.currency || ''}`;
 
     const descEl = document.createElement('p');
     descEl.className = 'profile-nft-meta';
@@ -460,58 +438,283 @@ function renderNftsForSale() {
   });
 }
 
-// ---------- Wallet-sign helper for delete ----------
+/* -------------------------
+   Marketplace logic
+   ------------------------- */
 
-async function confirmDeleteWithWallet() {
-  if (typeof window.ethereum === 'undefined') {
-    throw new Error('MetaMask is not installed.');
-  }
+const marketplaceGrid = safeGet('marketplaceGrid');
+const emptyState = safeGet('emptyState');
+const nftCountEl = safeGet('nftCount');
+const searchInput = safeGet('searchInput');
+const applyFiltersBtn = safeGet('applyFilters');
+const clearFiltersBtn = safeGet('clearFilters');
+const sortBySelect = safeGet('sortBy');
 
-  // Prefer the address you already stored (so the message matches the shown address)
-  const storedWallet = localStorage.getItem(WALLET_STORAGE_KEY);
+const nftModal = safeGet('nftModal');
+const modalOverlay = nftModal ? nftModal.querySelector('.nft-modal-overlay') : null;
+const modalClose = nftModal ? nftModal.querySelector('.nft-modal-close') : null;
+const modalImage = safeGet('modalImage');
+const modalName = safeGet('modalName');
+const modalCreator = safeGet('modalCreator');
+const modalChain = safeGet('modalChain');
+const modalDescription = safeGet('modalDescription');
+const modalPrice = safeGet('modalPrice');
+const buyNowBtn = safeGet('buyNowBtn');
 
-  // Ask MetaMask for accounts (ensures connection and gives us a real address)
-  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-  const currentAddress = accounts[0];
+function getActiveFilters() {
+  const statusFilters = Array.from(
+    document.querySelectorAll('input[name="status"]:checked')
+  ).map(el => el.value);
 
-  // If we have a stored wallet, make sure the signing account matches it
-  if (storedWallet && storedWallet.toLowerCase() !== currentAddress.toLowerCase()) {
-    throw new Error('Connected wallet does not match the profile wallet.');
-  }
+  const chainFilters = Array.from(
+    document.querySelectorAll('input[name="chain"]:checked')
+  ).map(el => el.value);
 
-  const addressToUse = storedWallet || currentAddress;
+  const minPrice = parseFloat((safeGet('minPrice') && safeGet('minPrice').value) || '') || 0;
+  const maxPriceValue = (safeGet('maxPrice') && safeGet('maxPrice').value) || '';
+  const maxPrice = maxPriceValue === '' ? Infinity : parseFloat(maxPriceValue);
 
-  const message = `
-NFT Galxe - Delete Account Confirmation
+  const searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const sortBy = sortBySelect ? sortBySelect.value : 'newest';
 
-Wallet: ${addressToUse}
-
-By signing this message, you confirm that you want to delete
-your profile, NFTs, and wallet data from this browser (local demo only).
-  `.trim();
-
-  const params = [message, addressToUse];
-
-  const signature = await window.ethereum.request({
-    method: 'personal_sign',
-    params,
-  });
-
-  return { address: addressToUse, signature };
+  return {
+    statusFilters,
+    chainFilters,
+    minPrice,
+    maxPrice,
+    searchQuery,
+    sortBy
+  };
 }
 
-// ---------- Init after DOM ready ----------
+function filterAndSortNfts(nfts) {
+  const filters = getActiveFilters();
+
+  let filtered = nfts.filter(nft => {
+    // Status filter
+    if (filters.statusFilters.length > 0) {
+      if (filters.statusFilters.includes('forSale') && !nft.forSale) return false;
+      if (filters.statusFilters.includes('notForSale') && nft.forSale) return false;
+    }
+
+    // Chain filter
+    if (filters.chainFilters.length > 0) {
+      if (!filters.chainFilters.includes(nft.chain)) return false;
+    }
+
+    const priceValue = parseFloat(nft.price) || 0;
+    if (priceValue < filters.minPrice || priceValue > filters.maxPrice) {
+      return false;
+    }
+
+    // Search filter
+    if (filters.searchQuery) {
+      const nameMatch = (nft.name || '').toLowerCase().includes(filters.searchQuery);
+      const creatorMatch = (nft.creator || '').toLowerCase().includes(filters.searchQuery);
+      const descMatch = (nft.description || '').toLowerCase().includes(filters.searchQuery);
+      if (!nameMatch && !creatorMatch && !descMatch) return false;
+    }
+
+    return true;
+  });
+
+  switch (filters.sortBy) {
+    case 'newest':
+      filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      break;
+    case 'oldest':
+      filtered.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+      break;
+    case 'price-low':
+      filtered.sort((a, b) => parseFloat(a.price || 0) - parseFloat(b.price || 0));
+      break;
+    case 'price-high':
+      filtered.sort((a, b) => parseFloat(b.price || 0) - parseFloat(a.price || 0));
+      break;
+  }
+
+  return filtered;
+}
+
+function loadAllNfts() {
+  return loadCreatedNfts();
+}
+
+function renderNfts() {
+  if (!marketplaceGrid) return;
+  const allNfts = loadAllNfts();
+  const filtered = filterAndSortNfts(allNfts);
+
+  marketplaceGrid.innerHTML = '';
+
+  if (filtered.length === 0) {
+    if (emptyState) emptyState.classList.remove('hidden');
+    if (nftCountEl) nftCountEl.textContent = 'هیچ NFT یافت نشد';
+    return;
+  }
+
+  if (emptyState) emptyState.classList.add('hidden');
+  if (nftCountEl) nftCountEl.textContent = `${filtered.length} NFT یافت شد`;
+
+  filtered.forEach((nft) => {
+    const card = document.createElement('article');
+    card.className = 'marketplace-card';
+
+    const imageDiv = document.createElement('div');
+    imageDiv.className = 'marketplace-card-image';
+    const img = document.createElement('img');
+    img.src = nft.imageData;
+    img.alt = nft.name || '';
+    imageDiv.appendChild(img);
+
+    const nameEl = document.createElement('h3');
+    nameEl.className = 'marketplace-card-name';
+    nameEl.textContent = nft.name || '';
+
+    const creatorEl = document.createElement('p');
+    creatorEl.className = 'marketplace-card-creator';
+    creatorEl.textContent = `سازنده: ${shortAddress(nft.creator)}`;
+
+    const footer = document.createElement('div');
+    footer.className = 'marketplace-card-footer';
+
+    const priceEl = document.createElement('span');
+    priceEl.className = 'marketplace-card-price';
+    priceEl.textContent = `${nft.price} ${nft.currency || ''}`;
+
+    const chainEl = document.createElement('span');
+    chainEl.className = 'marketplace-card-chain';
+    chainEl.textContent = nft.chain || '';
+
+    footer.appendChild(priceEl);
+    footer.appendChild(chainEl);
+
+    card.appendChild(imageDiv);
+    card.appendChild(nameEl);
+    card.appendChild(creatorEl);
+    card.appendChild(footer);
+
+    card.addEventListener('click', () => openNftModal(nft));
+
+    marketplaceGrid.appendChild(card);
+  });
+}
+
+function openNftModal(nft) {
+  if (!nftModal) return;
+  if (modalImage) modalImage.src = nft.imageData;
+  if (modalName) modalName.textContent = nft.name;
+  if (modalCreator) modalCreator.textContent = shortAddress(nft.creator);
+  if (modalChain) modalChain.textContent = nft.chain;
+  if (modalDescription) modalDescription.textContent = nft.description || 'بدون توضیحات';
+  if (modalPrice) modalPrice.textContent = `${nft.price} ${nft.currency || ''}`;
+
+  if (buyNowBtn) {
+    buyNowBtn.onclick = () => handleBuyNow(nft);
+  }
+
+  nftModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNftModal() {
+  if (!nftModal) return;
+  nftModal.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+if (modalClose) modalClose.addEventListener('click', closeNftModal);
+if (modalOverlay) modalOverlay.addEventListener('click', closeNftModal);
+
+async function handleBuyNow(nft) {
+  if (typeof window.ethereum === 'undefined') {
+    alert('لطفاً MetaMask را نصب کنید تا بتوانید خرید کنید.');
+    return;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const buyer = accounts[0];
+
+    const message = `
+NFT Galxe - خرید NFT
+
+نام: ${nft.name}
+قیمت: ${nft.price} ${nft.currency}
+بلاک‌چین: ${nft.chain}
+خریدار: ${buyer}
+
+با امضای این پیام، شما تأیید می‌کنید که این NFT را خریداری می‌کنید (دمو).
+    `.trim();
+
+    await window.ethereum.request({
+      method: 'personal_sign',
+      params: [message, buyer],
+    });
+
+    alert('✅ خرید با موفقیت انجام شد! (دمو - هیچ تراکنش واقعی انجام نشده)');
+    closeNftModal();
+  } catch (err) {
+    console.error(err);
+    alert('❌ خرید لغو شد یا با خطا مواجه شد.');
+  }
+}
+
+/* -------------------------
+   UI behavior / events
+   ------------------------- */
+
+if (connectButton) {
+  connectButton.addEventListener('click', (e) => {
+    // If already connected, toggle menu; otherwise try to connect
+    if (connectButton.classList.contains('connected')) {
+      e.stopPropagation();
+      if (walletDropdown) walletDropdown.classList.toggle('hidden');
+    } else {
+      connectWallet();
+    }
+  });
+}
+
+if (logoutButton) {
+  logoutButton.addEventListener('click', () => {
+    disconnectWalletUI();
+  });
+}
+
+// Close wallet dropdown when clicking outside (use a forgiving selector)
+window.addEventListener('click', (event) => {
+  const isInside = event.target.closest && (event.target.closest('.wallet-menu') || event.target.closest('#walletDropdown'));
+  if (!isInside) {
+    if (walletDropdown) walletDropdown.classList.add('hidden');
+  }
+});
+
+/* -------------------------
+   Single DOMContentLoaded init
+   ------------------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const profileForm = document.getElementById('profileForm');
-  const profileNameInput = document.getElementById('profileName');
-  const profileAboutInput = document.getElementById('profileAbout');
-  const profileImageInput = document.getElementById('profileImage');
-  const deleteAccountBtn = document.getElementById('deleteAccountBtn');
-  const connectButton = document.getElementById('connectWallet');
+  // Wallet state restore
+  const savedAddress = localStorage.getItem(STORAGE_KEY_WALLET);
+  if (savedAddress && connectButton) {
+    connectButton.textContent = shortAddress(savedAddress);
+    connectButton.classList.add('connected');
+    connectButton.style.backgroundColor = '#6F42C1';
+    if (walletAddressText) walletAddressText.textContent = shortAddress(savedAddress);
+    if (walletDropdown) walletDropdown.classList.add('hidden');
+  }
 
-  // 1. Load profile on page load
+  // Create page
+  renderCreatedNfts();
+
+  // Profile page init
   const existingProfile = loadProfile();
+  const profileNameInput = safeGet('profileName');
+  const profileAboutInput = safeGet('profileAbout');
+  const profileImageInput = safeGet('profileImage');
+  const deleteAccountBtn = safeGet('deleteAccountBtn');
+
   if (existingProfile) {
     if (profileNameInput) profileNameInput.value = existingProfile.name || '';
     if (profileAboutInput) profileAboutInput.value = existingProfile.about || '';
@@ -520,14 +723,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateAvatar(null);
   }
 
-  // 2. Wallet + NFTs on page load
   updateWalletInProfile();
   renderNftsForSale();
 
-  // ----- Avatar upload -----
   if (profileImageInput) {
     profileImageInput.addEventListener('change', async () => {
-      const file = profileImageInput.files[0];
+      const file = profileImageInput.files && profileImageInput.files[0];
       if (!file) return;
 
       if (!file.type.startsWith('image/')) {
@@ -556,15 +757,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ----- Save profile (name + about) -----
+  // Save profile form
+  const profileForm = safeGet('profileForm');
   if (profileForm) {
     profileForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
       const name = profileNameInput ? profileNameInput.value.trim() : '';
       const about = profileAboutInput ? profileAboutInput.value.trim() : '';
       const current = loadProfile() || {};
-
       const profileData = {
         ...current,
         name,
@@ -572,45 +772,34 @@ document.addEventListener('DOMContentLoaded', () => {
         avatarData: current.avatarData || null,
         updatedAt: Date.now(),
       };
-
       saveProfile(profileData);
       updateAvatar(profileData);
       setProfileStatus('✅ Profile saved successfully.', 'success');
     });
   }
 
-  // ----- Delete account (this is the important part) -----
+  // Delete account
   if (deleteAccountBtn) {
     deleteAccountBtn.addEventListener('click', async () => {
-      // Optional browser-level confirmation
-      const sure = window.confirm(
-        'Are you sure you want to delete your profile and locally stored NFTs? This cannot be undone (local demo only).'
-      );
+      const sure = window.confirm('Are you sure you want to delete your profile and locally stored NFTs? This cannot be undone (local demo only).');
       if (!sure) return;
 
       setProfileStatus('Requesting wallet confirmation to delete account...', '');
 
       try {
-        // 1. Ask wallet to sign confirmation message
         await confirmDeleteWithWallet();
 
-        // 2. If signature succeeds, remove local data
-        localStorage.removeItem(PROFILE_STORAGE_KEY);
-        localStorage.removeItem(NFT_STORAGE_KEY);
-        localStorage.removeItem(WALLET_STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY_PROFILE);
+        localStorage.removeItem(STORAGE_KEY_NFTS);
+        localStorage.removeItem(STORAGE_KEY_WALLET);
 
-        // 3. Reset profile fields
         if (profileNameInput) profileNameInput.value = '';
         if (profileAboutInput) profileAboutInput.value = '';
         updateAvatar(null);
 
-        // 4. Reset wallet display in profile
         updateWalletInProfile();
-
-        // 5. Reset NFTs list (will show empty state)
         renderNftsForSale();
 
-        // 6. Reset wallet button in navbar (visual reset)
         if (connectButton) {
           connectButton.textContent = 'Connect Wallet';
           connectButton.classList.remove('connected');
@@ -620,15 +809,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setProfileStatus('✅ Account deleted from this browser (local demo).', 'success');
       } catch (err) {
         console.error(err);
-
-        // If MetaMask was closed / user rejected / mismatch, show proper message
         if (err.message && err.message.includes('does not match the profile wallet')) {
-          setProfileStatus(
-            'The connected wallet does not match the profile wallet. Account not deleted.',
-            'error'
-          );
+          setProfileStatus('The connected wallet does not match the profile wallet. Account not deleted.', 'error');
         } else if (err.code === 4001) {
-          // 4001 is commonly "user rejected request" in MetaMask
           setProfileStatus('Wallet confirmation rejected. Account not deleted.', 'error');
         } else {
           setProfileStatus('Wallet confirmation failed. Account not deleted.', 'error');
@@ -636,4 +819,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Marketplace init & events
+  renderNfts();
+
+  if (applyFiltersBtn) applyFiltersBtn.addEventListener('click', renderNfts);
+
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+      document.querySelectorAll('input[name="status"]').forEach(el => el.checked = el.value === 'forSale');
+      document.querySelectorAll('input[name="chain"]').forEach(el => el.checked = true);
+      const minEl = safeGet('minPrice'); if (minEl) minEl.value = '';
+      const maxEl = safeGet('maxPrice'); if (maxEl) maxEl.value = '';
+      if (searchInput) searchInput.value = '';
+      if (sortBySelect) sortBySelect.value = 'newest';
+      renderNfts();
+    });
+  }
+
+  if (sortBySelect) sortBySelect.addEventListener('change', renderNfts);
+  if (searchInput) searchInput.addEventListener('input', renderNfts);
 });
