@@ -1,0 +1,45 @@
+/* ---------- Global Styles ---------- */
+body {
+  margin: 0;
+  font-family: 'Vazirmatn', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  direction: rtl;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+p {
+  font-weight: 400;
+  color: #ccc;
+}
+
+/* ---------- Utility Classes ---------- */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Responsive Base ---------- */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1, h2, h3, h4 {
+    font-size: 90%;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
