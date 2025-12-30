@@ -1,0 +1,141 @@
+/* Inputs: Material-style Checkbox, Radio & Text Field
+   - States: default, hover, focus, checked/selected, disabled, pressed
+   - Text fields: two variants - filled (مخفی+پرشده) and outlined (محصور)
+*/
+
+:root {
+  --md-control-bg: #12171f;
+  --md-border: #1a1f24;
+  --md-ink: #e6edf3;
+  --md-muted: #7b8695;
+  --md-primary: #1F6FEB;
+}
+
+/* ---------- Checkbox ---------- */
+.md-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--md-ink);
+  font-size: 14px;
+}
+
+.md-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.md-checkbox .checkbox-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: transparent;
+  border: 2px solid var(--md-border);
+  display: inline-grid;
+  place-items: center;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.06s;
+}
+
+.md-checkbox .checkbox-box svg { width: 12px; height: 12px; fill: transparent; }
+
+.md-checkbox:hover .checkbox-box { border-color: var(--md-ink); }
+
+.md-checkbox input[type="checkbox"]:checked + .checkbox-box {
+  background: var(--md-primary);
+  border-color: var(--md-primary);
+}
+
+.md-checkbox input[type="checkbox"]:checked + .checkbox-box svg {
+  fill: #fff;
+}
+
+.md-checkbox input[type="checkbox"]:focus + .checkbox-box {
+  box-shadow: 0 0 0 4px rgba(31,111,235,0.14);
+}
+
+.md-checkbox.disabled,
+.md-checkbox input[disabled] + .checkbox-box { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+/* ---------- Radio ---------- */
+.md-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--md-ink);
+}
+
+.md-radio input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.md-radio .radio-outer {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--md-border); display: grid; place-items:center;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.md-radio .radio-inner { width: 10px; height: 10px; border-radius:50%; background: transparent; transition: transform 0.12s; }
+
+.md-radio:hover .radio-outer { border-color: var(--md-ink); }
+
+.md-radio input[type="radio"]:checked + .radio-outer { border-color: var(--md-primary); background: rgba(31,111,235,0.08); }
+.md-radio input[type="radio"]:checked + .radio-outer .radio-inner { background: var(--md-primary); }
+
+.md-radio input[type="radio"]:focus + .radio-outer { box-shadow: 0 0 0 4px rgba(31,111,235,0.14); }
+
+.md-radio.disabled { opacity: 0.45; pointer-events: none; }
+
+/* ---------- Text Field (Filled & Outlined) ---------- */
+.md-textfield {
+  display: block;
+  max-width: 100%;
+}
+
+.md-textfield .md-label {
+  display: block;
+  font-size: 13px;
+  color: var(--md-muted);
+  margin-bottom: 6px;
+}
+
+/* common input element styles */
+.md-textfield .md-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: var(--md-ink);
+  background: transparent;
+  border: 1px solid var(--md-border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.12s, background-color 0.12s;
+}
+
+.md-textfield .md-input::placeholder { color: var(--md-muted); }
+
+/* Filled variant */
+.md-textfield.filled .md-input {
+  background: #0b0f14;
+  border: 1px solid transparent;
+}
+.md-textfield.filled .md-input:hover { background: #0e1318; }
+.md-textfield.filled .md-input:focus { box-shadow: 0 0 0 4px rgba(31,111,235,0.08); border-color: var(--md-primary); }
+
+/* Outlined variant */
+.md-textfield.outlined .md-input { background: transparent; }
+.md-textfield.outlined .md-input:focus { border-color: var(--md-primary); box-shadow: 0 0 0 4px rgba(31,111,235,0.08); }
+
+/* Disabled state */
+.md-textfield .md-input:disabled { background: #080b10; color: #6c7480; cursor: not-allowed; }
+
+/* Helper / error text */
+.md-textfield .md-help {
+  font-size: 12px; color: var(--md-muted); margin-top: 6px;
+}
+.md-textfield.error .md-help { color: #ff6b6b; }
+
+/* Small / compact */
+.md-textfield.compact .md-input { padding: 8px 10px; border-radius: 8px; }
