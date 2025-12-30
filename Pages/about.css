@@ -1,0 +1,42 @@
+/* ========================================
+   ABOUT PAGE
+   ======================================== */
+
+.about {
+  padding: 80px 60px;
+  background-color: #0f131a;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about h2 {
+  color: var(--primary-color);
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.about p {
+  font-size: 17px;
+  color: #ccc;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 20px;
+  }
+
+  .about h2 {
+    font-size: 26px;
+  }
+
+  .about p {
+    font-size: 15px;
+  }
+}
