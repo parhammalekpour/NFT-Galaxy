@@ -1,0 +1,183 @@
+/* ========================================
+   NAVBAR
+   ======================================== */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 60px;
+  background-color: #0b0e12;
+  border-bottom: 1px solid #1a1f24;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.brand-name span {
+  color: #2081E2;
+}
+
+/* Navigation */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-links a.active-link {
+  color: var(--primary-color);
+}
+
+/* Wallet Menu */
+.wallet-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.wallet-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.wallet-btn:hover {
+  background-color: #1559c9;
+}
+
+.wallet-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  inset-inline-end: 0;
+  max-width: 240px;
+  background: #12171f;
+  border: 1px solid #1a1f24;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  overflow-wrap: break-word;
+}
+
+.wallet-dropdown.hidden {
+  display: none;
+}
+
+.logout-btn {
+  background-color: #ff4d4d;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #e03b3b;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+  }
+
+  .wallet-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .wallet-dropdown {
+    inset-inline-end: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+  background-color: #0b0e12;
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid #1a1f24;
+}
+
+.socials {
+  margin-bottom: 10px;
+}
+
+.socials a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.socials a:hover {
+  color: var(--primary-color);
+}
+
+.footer p {
+  font-size: 14px;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 10px;
+  }
+}
