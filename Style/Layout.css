@@ -7,8 +7,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 60px;
-  background-color: #0b0e12;
-  border-bottom: 1px solid #1a1f24;
+  background-color: var(--navbar-background);
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: var(--nav-elevation);
 }
 
 /* Logo */
@@ -28,7 +29,7 @@
 .brand-name {
   font-size: 22px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-color);
   letter-spacing: -0.5px;
 }
 
@@ -73,7 +74,7 @@
 .wallet-btn {
   background-color: var(--primary-color);
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
@@ -90,8 +91,9 @@
   top: calc(100% + 10px);
   inset-inline-end: 0;
   max-width: 240px;
-  background: #12171f;
-  border: 1px solid #1a1f24;
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--dropdown-elevation);
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -105,7 +107,7 @@
 .logout-btn {
   background-color: #ff4d4d;
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
@@ -150,10 +152,10 @@
    ======================================== */
 
 .footer {
-  background-color: #0b0e12;
+  background-color: var(--navbar-background);
   text-align: center;
   padding: 40px 20px;
-  border-top: 1px solid #1a1f24;
+  border-top: 1px solid var(--navbar-border);
 }
 
 .socials {
@@ -173,7 +175,7 @@
 
 .footer p {
   font-size: 14px;
-  color: #aaa;
+  color: var(--muted-text);
 }
 
 @media (max-width: 768px) {
