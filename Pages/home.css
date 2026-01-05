@@ -5,7 +5,7 @@
 .hero {
   text-align: center;
   padding: 100px 20px;
-  background-color: #0f131a;
+  background-color: var(--surface-color);
 }
 
 .hero h2 {
@@ -16,13 +16,13 @@
 
 .hero p {
   font-size: 18px;
-  color: #ccc;
+  color: var(--muted-text);
   margin-bottom: 25px;
 }
 
 .cta-btn {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--on-primary, #fff);
   padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
@@ -89,11 +89,11 @@
    ======================================== */
 
 .poll {
-  background-color: #12171f;
+  background-color: var(--input-bg);
   padding: 60px 40px;
   text-align: center;
-  border-top: 1px solid #1a1f24;
-  border-bottom: 1px solid #1a1f24;
+  border-top: 1px solid var(--md-border);
+  border-bottom: 1px solid var(--md-border);
 }
 
 .poll h3 {
@@ -111,7 +111,7 @@
 .poll-btn {
   background-color: var(--secondary-color);
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -127,7 +127,7 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 10px;
-  color: #ccc;
+  color: var(--muted-text);
 }
 
 /* Responsive Poll */
@@ -152,10 +152,10 @@
    ======================================== */
 
 .survey {
-  background-color: #0f131a;
+  background-color: var(--surface-color);
   padding: 70px 40px;
   text-align: center;
-  border-top: 1px solid #1a1f24;
+  border-top: 1px solid var(--md-border);
 }
 
 .survey-container {
@@ -170,7 +170,7 @@
 }
 
 .survey p {
-  color: #ccc;
+  color: var(--muted-text);
   font-size: 16px;
   margin-bottom: 25px;
 }
@@ -179,8 +179,8 @@
   flex: 1;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #1a1f24;
-  background-color: #12171f;
+  border: 1px solid var(--md-border);
+  background-color: var(--input-bg);
   color: var(--text-color);
   font-size: 15px;
   outline: none;
@@ -190,10 +190,26 @@
   border-color: var(--primary-color);
 }
 
+/* Make the first name / last name inputs look the same as the email input */
+.survey input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--md-border);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 15px;
+  outline: none;
+}
+
+.survey input[type="text"]:focus {
+  border-color: var(--primary-color);
+}
+
 .survey-btn {
   background-color: var(--primary-color);
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 12px 28px;
   border-radius: 8px;
   cursor: pointer;
