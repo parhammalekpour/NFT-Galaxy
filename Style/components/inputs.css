@@ -4,10 +4,10 @@
 */
 
 :root {
-  --md-control-bg: #12171f;
-  --md-border: #1a1f24;
-  --md-ink: #e6edf3;
-  --md-muted: #7b8695;
+  --md-control-bg: var(--input-bg);
+  --md-border: var(--md-border, #1a1f24);
+  --md-ink: var(--text-color);
+  --md-muted: var(--muted-text);
   --md-primary: #1F6FEB;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .md-checkbox input[type="checkbox"]:checked + .checkbox-box svg {
-  fill: #fff;
+  fill: var(--on-primary, #fff);
 }
 
 .md-checkbox input[type="checkbox"]:focus + .checkbox-box {
@@ -118,10 +118,10 @@
 
 /* Filled variant */
 .md-textfield.filled .md-input {
-  background: #0b0f14;
+  background: var(--input-bg);
   border: 1px solid transparent;
 }
-.md-textfield.filled .md-input:hover { background: #0e1318; }
+.md-textfield.filled .md-input:hover { background: color-mix(in srgb, var(--input-bg) 90%, black 10%); }
 .md-textfield.filled .md-input:focus { box-shadow: 0 0 0 4px rgba(31,111,235,0.08); border-color: var(--md-primary); }
 
 /* Outlined variant */
@@ -129,7 +129,7 @@
 .md-textfield.outlined .md-input:focus { border-color: var(--md-primary); box-shadow: 0 0 0 4px rgba(31,111,235,0.08); }
 
 /* Disabled state */
-.md-textfield .md-input:disabled { background: #080b10; color: #6c7480; cursor: not-allowed; }
+.md-textfield .md-input:disabled { background: var(--input-bg-disabled); color: var(--muted-text); cursor: not-allowed; }
 
 /* Helper / error text */
 .md-textfield .md-help {
