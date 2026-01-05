@@ -13,7 +13,7 @@
   border: none;
   cursor: pointer;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary, #fff);
   transition: background-color 0.2s ease,
               box-shadow 0.2s ease,
               transform 0.1s ease;
@@ -37,12 +37,13 @@
    ======================================== */
 
 .nft-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--nft-card-bg);
+  border: 1px solid var(--nft-card-border);
+  box-shadow: var(--card-elevation);
   backdrop-filter: blur(8px);
   border-radius: 14px;
   padding: 20px;
-  transition: 0.3s;
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 180ms ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -50,7 +51,7 @@
 
 .nft-card:hover {
   transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 0 25px rgba(32,129,226,0.35);
+  box-shadow: 0 0 25px var(--nft-card-glow);
 }
 
 .nft-card::before {
@@ -60,7 +61,7 @@
   left: -40%;
   width: 180%;
   height: 180%;
-  background: radial-gradient(circle, rgba(32,129,226,0.25), transparent 60%);
+  background: radial-gradient(circle, var(--nft-card-glow), transparent 60%);
   transform: scale(0);
   transition: 0.5s;
 }
@@ -80,7 +81,7 @@
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 0.9rem;
-  color: white;
+  color: var(--on-primary, #fff);
   margin: 10px auto;
   display: inline-block;
 }
@@ -92,7 +93,7 @@
   padding: 10px 0;
   border-radius: 8px;
   background: var(--primary-color);
-  color: white;
+  color: var(--on-primary, #fff);
   font-weight: 600;
   text-align: center;
   transition: 0.3s;
@@ -102,6 +103,134 @@
   background: #1559c9;
 }
 
+/* Favorite heart button */
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.32);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: background 160ms ease, transform 120ms ease;
+  z-index: 5;
+}
+.favorite-btn svg { display: block; }
+.favorite-btn:hover { transform: scale(1.06); background: rgba(0,0,0,0.45); }
+.favorite-btn.favorited { background: rgba(255,230,230,0.12); color: var(--danger, #e11); }
+.favorite-btn.favorited svg path { fill: #ff4d6d; stroke: #ff4d6d; }
+.favorite-btn svg path { transition: fill 160ms ease, stroke 160ms ease; }
+
+/* Ratings (stars) */
+.rating-widget { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted-text); }
+.rating-widget .star { width: 18px; height: 18px; display: inline-block; cursor: default; }
+.rating-widget .star svg { width: 100%; height: 100%; }
+.rating-widget .star.filled svg path { fill: #FFC107; stroke: #FFC107; }
+.modal-rating { margin-top: 10px; margin-bottom: 8px; }
+.rate-prompt { margin-top: 10px; display:block; }
+.rate-prompt .star { cursor: pointer; display:inline-block; width:32px; height:32px; margin-right:6px; }
+.rate-prompt .star svg { width:100%; height:100%; transform-origin:center; transition: transform 120ms ease, opacity 120ms ease; }
+.rate-prompt .star:hover svg { transform: scale(1.12); }
+.rate-prompt .star svg path { transition: fill 120ms ease, stroke 120ms ease, transform 120ms ease; }
+.rate-prompt .star.filled svg path { fill: #FFC107; stroke: #FFC107; }
+.rate-prompt .thankyou { margin-top:8px; color: #16a34a; font-weight:600; }
+
+/* Modal button spacing: ensure buy/add buttons have comfortable gap */
+.modal-price-section { display:flex; align-items:center; gap:12px; }
+.modal-price-label { font-size: 13px; color: var(--muted-text); margin-right:6px; }
+.modal-price-value { font-size: 18px; font-weight:700; color: var(--text-color); white-space:nowrap; }
+
+/* Modal buy/add buttons - make them consistent in size and shape */
+.modal-buy-btn,
+.modal-add-cart-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 40px;
+  min-width: 130px; /* same minimum size for consistency */
+}
+
+.modal-buy-btn,
+.modal-add-cart-btn {
+  background: var(--primary-color);
+  color: var(--on-primary,#fff);
+  border: none;
+}
+
+/* make sure add-to-cart matches hover/interaction of buy button */
+.modal-buy-btn:hover,
+.modal-add-cart-btn:hover { background-color: #1559c9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,111,235,0.2); }
+
+/* group buttons together in modal */
+.modal-actions { display:inline-flex; gap:10px; align-items:center; }
+.modal-add-cart-btn:focus,
+.modal-buy-btn:focus { outline: none; box-shadow: 0 4px 12px rgba(31,111,235,0.12); }
+
+/* Cart */
+.cart-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: var(--on-primary,#fff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(15,100,210,0.18);
+  border: none;
+  cursor: pointer;
+  z-index: 1200;
+}
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  min-width: 20px;
+  text-align: center;
+}
+.cart-modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1300; }
+.cart-modal.hidden { display: none; }
+.cart-modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+.cart-modal-content {
+  position: relative;
+  /* Use an opaque surface color to remove glass / frosted effect */
+  background: var(--surface-color);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  box-shadow: var(--card-elevation);
+  z-index: 4;
+}
+.cart-modal-close { position: absolute; right: 10px; top: 8px; border: none; background: transparent; font-size: 22px; cursor: pointer; }
+.cart-title { margin: 6px 0 12px; }
+.cart-items { max-height: 340px; overflow: auto; display: grid; gap: 10px; }
+.cart-item { display:flex; gap:10px; align-items:center; padding:8px; border-radius:8px; border:1px solid var(--card-border); }
+.cart-item img { width:56px; height:56px; object-fit:cover; border-radius:8px; }
+.cart-item .info { flex:1; }
+.cart-item .qty { display:flex; gap:6px; align-items:center; }
+.cart-item .qty button { width:28px; height:28px; border-radius:6px; border:none; background:#f3f4f6; cursor:pointer; }
+.cart-total-row { display:flex; justify-content:space-between; margin-top:12px; font-weight:700; }
+.cart-actions { display:flex; gap:8px; margin-top:12px; justify-content:flex-end; }
+
 /* ========================================
    FORM ELEMENTS
    ======================================== */
@@ -109,14 +238,16 @@
 .text-input,
 .textarea-input,
 .select-input {
-  background-color: #12171f;
+  background-color: var(--input-bg);
   border-radius: 10px;
-  border: 1px solid #1a1f24;
+  border: 1px solid var(--md-border);
+  box-shadow: var(--input-elevation);
   padding: 10px 12px;
   color: var(--text-color);
   font-family: inherit;
   font-size: 14px;
   outline: none;
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
 }
 
 .textarea-input {
@@ -149,21 +280,21 @@
    ======================================== */
 
 .image-upload-wrapper input[type="file"] {
-  color: #b0b9c5;
+  color: var(--muted-text);
   font-size: 13px;
 }
 
 .image-hint {
   font-size: 12px;
-  color: #7b8695;
+  color: var(--muted-text);
   margin-top: 4px;
 }
 
 .image-preview {
   margin-top: 8px;
   border-radius: 12px;
-  border: 1px dashed #30363d;
-  background-color: #080b10;
+  border: 1px dashed var(--md-border);
+  background-color: var(--input-bg);
   padding: 12px;
   min-height: 180px;
   display: flex;
@@ -174,7 +305,7 @@
 
 .image-preview-placeholder {
   font-size: 13px;
-  color: #6c7480;
+  color: var(--muted-text);
 }
 
 .image-preview img {
@@ -203,7 +334,7 @@
 .switch-slider {
   width: 42px;
   height: 22px;
-  background-color: #30363d;
+  background-color: var(--md-border);
   border-radius: 999px;
   position: relative;
   transition: background-color 0.2s ease;
@@ -215,7 +346,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: var(--on-surface, #ffffff);
   top: 2px;
   left: 3px;
   transition: transform 0.2s ease;
@@ -231,7 +362,7 @@
 
 .switch-text {
   font-size: 13px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 /* ========================================
@@ -248,7 +379,7 @@
 .status-message {
   font-size: 13px;
   min-height: 18px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 .status-message.success {
