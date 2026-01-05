@@ -1,9 +1,10 @@
 
 
 :root {
-  --md-surface: #12171f;
-  --md-on-surface: #e6edf3;
-  --md-primary: #1F6FEB;
+  /* Use global tokens where possible so component adapts to theme */
+  --md-surface: var(--input-bg);
+  --md-on-surface: var(--text-color);
+  --md-primary: var(--primary-color);
   --md-hover: rgba(31,111,235,0.12);
 }
 
@@ -65,7 +66,7 @@
 /* Material-like raised button (generic) */
 .md-btn.md-raise {
   background-color: var(--md-primary);
-  color: #fff;
+  color: var(--on-primary, #fff);
   box-shadow: 0 6px 16px rgba(31,111,235,0.18);
 }
 
