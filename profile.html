@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <a href="./index.html"><img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" /></a>
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
@@ -23,6 +23,7 @@
         <li><a href="./create.html">مجموعه‌ها</a></li>
         <li><a href="./profile.html" class="active-link">پروفایل</a></li>
         <li><a href="./About Us.html">درباره ما</a></li>
+        <li><a href="./settings.html">تنظیمات</a></li>
       </ul>
 
       <div class="wallet-menu">
@@ -103,6 +104,14 @@
     </section>
 
     <!-- Right Column: NFTs For Sale -->
+    <section id="favorites" class="profile-favorites-section">
+      <h3>علاقه‌مندی‌ها</h3>
+      <p class="profile-nft-subtitle">NFTهایی که شما به عنوان علاقه‌مندی علامت زده‌اید.</p>
+      <div id="favoritesList" class="profile-nft-grid">
+        <!-- Favorited NFTs render here -->
+      </div>
+    </section>
+
     <section class="profile-nft-section">
       <h3>NFTهایی که برای فروش گذاشته‌اید</h3>
       <p class="profile-nft-subtitle">
@@ -128,5 +137,8 @@
 
   <!-- Existing wallet connect logic -->
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/settings.js"></script>
+  <script src="./Style/components/favorites.js"></script>
+  <script src="./Style/components/ratings.js"></script>
 </body>
 </html>
