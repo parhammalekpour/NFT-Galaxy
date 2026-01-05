@@ -25,7 +25,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.85);
+  background-color: var(--modal-overlay);
   backdrop-filter: blur(4px);
 }
 
@@ -35,15 +35,17 @@
 
 .nft-modal-content {
   position: relative;
-  background: #12171f;
-  border: 1px solid #1a1f24;
+  background: var(--input-bg);
+  border: 1px solid var(--md-border);
   border-radius: 20px;
-  max-width: 900px;
-  width: 100%;
+  /* allow content to grow with image; cap to viewport */
+  max-width: calc(100% - 40px);
+  width: auto;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: var(--modal-elevation);
   z-index: 1;
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, color 220ms ease;
 }
 
 /* Close Button */
@@ -53,7 +55,7 @@
   left: 20px;
   background: rgba(255,255,255,0.1);
   border: none;
-  color: white;
+  color: var(--text-color);
   font-size: 28px;
   width: 40px;
   height: 40px;
@@ -76,7 +78,8 @@
 
 .nft-modal-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* let image column size itself and the info column take remaining space */
+  grid-template-columns: auto 1fr;
   gap: 30px;
   padding: 40px;
 }
@@ -85,14 +88,19 @@
 .nft-modal-image {
   border-radius: 16px;
   overflow: hidden;
-  background-color: #0f131a;
+  background-color: var(--surface-color);
 }
 
 .nft-modal-image img {
-  width: 100%;
-  height: auto;
   display: block;
+  max-width: min(62vw, 760px); /* allow wide images to expand modal but cap to viewport */
+  max-height: 78vh; /* keep tall images within viewport */
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
+
+.nft-modal-image { display:flex; align-items:center; justify-content:center; }
 
 /* Info Section */
 .nft-modal-info {
@@ -110,24 +118,24 @@
 .modal-creator,
 .modal-chain {
   font-size: 14px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 .modal-label {
   font-weight: 600;
-  color: #e6edf3;
+  color: var(--text-color);
   margin-left: 6px;
 }
 
 /* Description */
 .modal-description h4 {
-  color: #e6edf3;
+  color: var(--text-color);
   font-size: 16px;
   margin-bottom: 8px;
 }
 
 .modal-description p {
-  color: #b0b9c5;
+  color: var(--muted-text);
   font-size: 14px;
   line-height: 1.6;
 }
@@ -136,49 +144,46 @@
    PRICE + BUY BUTTON
    ======================================== */
 
-.modal-price-section {
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.modal-price-box {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.modal-price-label {
-  font-size: 13px;
-  color: #7b8695;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
 .modal-price-value {
-  font-size: 32px;
+  /* reduce size so it doesn't overpower the modal */
+  font-size: 18px;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .modal-buy-btn {
-  width: 100%;
-  background-color: var(--primary-color);
-  border: none;
-  color: white;
-  padding: 14px;
-  border-radius: 12px;
-  font-size: 16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 16px;
+  font-size: 14px;
   font-weight: 600;
+  border-radius: 8px;
+  height: 40px;
+  min-width: 110px;
+  background-color: var(--primary-color);
+  color: var(--on-primary, #fff);
+  border: none;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
+}
+.modal-buy-btn:hover { background-color: #1559c9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,111,235,0.2); }
+/* cleaned up stray properties removed */
+
+.modal-buy-btn { /* keep inline layout by default; components.css provides most styles */
+  width: auto;
+  padding: 10px 16px;
+  border-radius: 8px;
 }
 
-.modal-buy-btn:hover {
-  background-color: #1559c9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(31,111,235,0.4);
+/* ensure add-to-cart matches buy button in modal context */
+.modal-add-cart-btn { width: auto; padding: 10px 16px; border-radius: 8px; }
+
+/* Responsive: stack buttons on small screens for better touch UX */
+@media (max-width: 768px) {
+  .modal-actions { display:flex; flex-direction:column; gap:10px; }
+  .modal-actions .modal-buy-btn,
+  .modal-actions .modal-add-cart-btn { width: 100%; }
 }
 
 /* ========================================
