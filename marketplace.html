@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <a href="./index.html"><img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" /></a>
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
@@ -23,6 +23,7 @@
         <li><a href="./create.html">مجموعه‌ها</a></li>
         <li><a href="./profile.html">پروفایل</a></li>
         <li><a href="./About Us.html">درباره ما</a></li>
+        <li><a href="./settings.html">تنظیمات</a></li>
       </ul>
 
       <div class="wallet-menu">
@@ -195,6 +196,9 @@
             <p id="modalDescription"></p>
           </div>
 
+          <div class="modal-rating-header" style="margin-top:8px; font-weight:600; color:var(--text-color);">آیا خرید شما موفق و آسان بود؟</div>
+          <div id="modalRating" class="modal-rating"></div>
+
           <div class="modal-price-section">
             <div class="modal-price-box">
               <span class="modal-price-label">قیمت فعلی</span>
@@ -205,9 +209,37 @@
           </div>
         </div>
       </div>
+
+          <!-- Shopping Cart Floating Button -->
+          <button id="cartBtn" class="cart-btn" aria-label="سبد خرید">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6h15l-1.5 9h-13z"></path><circle cx="9" cy="20" r="1"></circle><circle cx="19" cy="20" r="1"></circle></svg>
+            <span id="cartCount" class="cart-count">0</span>
+          </button>
+
+          <!-- Cart Modal -->
+          <div id="cartModal" class="cart-modal hidden">
+            <div class="cart-modal-overlay"></div>
+            <div class="cart-modal-content">
+              <button class="cart-modal-close">&times;</button>
+              <h3 class="cart-title">سبد خرید</h3>
+              <div id="cartItems" class="cart-items"></div>
+              <div class="cart-total-row">
+                <span>جمع کل:</span>
+                <strong id="cartTotal">0</strong>
+              </div>
+              <div class="cart-actions">
+                <button id="checkoutBtn" class="md-btn">پرداخت</button>
+                <button id="clearCartBtn" class="md-btn md-square" style="background:#e5e7eb;color:#111">خالی کردن</button>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
 
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/cart.js"></script>
+  <script src="./Style/components/settings.js"></script>
+  <script src="./Style/components/favorites.js"></script>
+  <script src="./Style/components/ratings.js"></script>
 </body>
 </html>
