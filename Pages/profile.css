@@ -7,7 +7,7 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
   gap: 32px;
   padding: 50px 60px 80px;
-  background-color: #0f131a;
+  background-color: var(--surface-color);
 }
 
 /* ========================================
@@ -15,8 +15,9 @@
    ======================================== */
 
 .profile-section {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--nft-card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-elevation);
   border-radius: 16px;
   padding: 24px 22px 20px;
   backdrop-filter: blur(8px);
@@ -28,7 +29,7 @@
 }
 
 .profile-subtitle {
-  color: #b0b9c5;
+  color: var(--muted-text);
   font-size: 13px;
   margin-bottom: 20px;
 }
@@ -48,7 +49,7 @@
 .form-label {
   font-size: 14px;
   font-weight: 600;
-  color: #e6edf3;
+  color: var(--text-color);
 }
 
 /* ---------- Avatar Upload ---------- */
@@ -63,8 +64,8 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background-color: #12171f;
-  border: 2px solid #1a1f24;
+  background-color: var(--input-bg);
+  border: 2px solid var(--md-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,18 +83,18 @@
 .avatar-initials {
   font-size: 20px;
   font-weight: 600;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 .avatar-upload-label {
   display: inline-flex;
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid #30363d;
-  color: #e6edf3;
+  border: 1px solid var(--card-border);
+  color: var(--text-color);
   font-size: 13px;
   cursor: pointer;
-  background-color: #12171f;
+  background-color: var(--input-bg);
   transition: background-color 0.2s, border-color 0.2s;
 }
 
@@ -107,8 +108,8 @@
 .profile-wallet-display {
   padding: 10px 12px;
   border-radius: 10px;
-  background-color: #12171f;
-  border: 1px solid #1a1f24;
+  background-color: var(--input-bg);
+  border: 1px solid var(--md-border);
   font-size: 13px;
   color: #0c5ac1;
   word-break: break-all;
@@ -127,7 +128,7 @@
   align-self: flex-start;
   background-color: var(--primary-color);
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 10px 20px;
   border-radius: 10px;
   font-weight: 600;
@@ -148,7 +149,7 @@
   align-self: flex-start;
   background-color: red;
   border: none;
-  color: #fff;
+  color: var(--on-primary, #fff);
   padding: 10px 20px;
   border-radius: 10px;
   font-weight: 600;
@@ -168,7 +169,7 @@
 .profile-status {
   font-size: 13px;
   min-height: 18px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 .profile-status.success {
@@ -184,8 +185,9 @@
    ======================================== */
 
 .profile-nft-section {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--nft-card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-elevation);
   border-radius: 16px;
   padding: 24px 22px 22px;
   backdrop-filter: blur(8px);
@@ -197,7 +199,7 @@
 }
 
 .profile-nft-subtitle {
-  color: #b0b9c5;
+  color: var(--muted-text);
   font-size: 13px;
   margin-bottom: 18px;
 }
@@ -209,13 +211,14 @@
 }
 
 .profile-nft-card {
-  background: rgba(255,255,255,0.04);
+  background: var(--nft-card-bg);
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--nft-card-border);
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  position: relative; /* ensure absolutely positioned buttons (like .favorite-btn) are contained inside the card */
 }
 
 .profile-nft-card img {
@@ -232,14 +235,14 @@
 
 .profile-nft-meta {
   font-size: 12px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 .profile-nft-price {
   display: inline-block;
   font-size: 13px;
   background-color: #0d6efd;
-  color: #fff;
+  color: var(--on-primary, #fff);
   border-radius: 999px;
   padding: 3px 9px;
   margin-top: 2px;
@@ -247,7 +250,7 @@
 
 .profile-nft-empty {
   font-size: 13px;
-  color: #b0b9c5;
+  color: var(--muted-text);
 }
 
 /* ========================================
