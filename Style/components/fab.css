@@ -8,7 +8,7 @@
   height: 56px;
   border-radius: 50%;
   background: var(--primary-color, #1F6FEB);
-  color: #fff;
+  color: var(--on-primary, #fff);
   display: inline-grid;
   place-items: center;
   box-shadow: 0 12px 30px rgba(31,111,235,0.25);
@@ -30,7 +30,7 @@
 .fab-label {
   display: none;
   margin-inline-start: 10px;
-  color: #fff;
+  color: var(--on-primary, #fff);
   font-weight: 700;
 }
 
