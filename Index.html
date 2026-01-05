@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" />
+        <a href="./index.html"><img src="./Style/Asset/Image/ChatGPT Image Nov 16, 2025, 07_49_32 PM.png" alt="لوگو" /></a>
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
@@ -23,6 +23,7 @@
         <li><a href="./create.html">مجموعه‌ها</a></li>
         <li><a href="./profile.html">پروفایل</a></li> 
         <li><a href="./About Us.html">درباره ما</a></li>
+        <li><a href="./settings.html">تنظیمات</a></li>
       </ul>
 
       <div class="wallet-menu">
@@ -52,7 +53,10 @@
 
       <div class="nft-grid">
 
-        <article class="nft-card">
+        <article class="nft-card" data-nft-id="pudgy-8639">
+          <button class="favorite-btn" aria-pressed="false" title="علاقه‌مندی" data-nft-id="pudgy-8639">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 7.6a5.4 5.4 0 0 0-7.6 0L12 8.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-4.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"></path></svg>
+          </button>
           <img src="./Style/Asset/Image/Pudgy Penguin.png" alt="Pudgy Penguin" />
           <h3>Pudgy Penguin #8639</h3>
           <p>by <strong>Pudgy Penguins</strong></p>
@@ -60,7 +64,10 @@
           <a class="nft-btn" href="">مشاهده جزئیات</a>
         </article>
 
-        <article class="nft-card">
+        <article class="nft-card" data-nft-id="dino-4526">
+          <button class="favorite-btn" aria-pressed="false" title="علاقه‌مندی" data-nft-id="dino-4526">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 7.6a5.4 5.4 0 0 0-7.6 0L12 8.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-4.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"></path></svg>
+          </button>
           <img src="./Style/Asset/Image/طسیزبلذیزسط.png" alt="Dino Gotchi" />
           <h3>Dino Gotchi #4526</h3>
           <p>by <strong>Sleepagotchi</strong></p>
@@ -68,7 +75,10 @@
           <a class="nft-btn" href="#">مشاهده جزئیات</a>
         </article>
 
-        <article class="nft-card">
+        <article class="nft-card" data-nft-id="anichess-334">
+          <button class="favorite-btn" aria-pressed="false" title="علاقه‌مندی" data-nft-id="anichess-334">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 7.6a5.4 5.4 0 0 0-7.6 0L12 8.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-4.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"></path></svg>
+          </button>
           <img src="./Style/Asset/Image/Anichess Ethernals.png" alt="Anichess Ethernals" />
           <h3>Anichess Ethernals #334</h3>
           <p>by <strong>Anichess</strong></p>
@@ -76,7 +86,10 @@
           <a class="nft-btn" href="#">مشاهده جزئیات</a>
         </article>
 
-        <article class="nft-card">
+        <article class="nft-card" data-nft-id="hypurr-4210">
+          <button class="favorite-btn" aria-pressed="false" title="علاقه‌مندی" data-nft-id="hypurr-4210">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 7.6a5.4 5.4 0 0 0-7.6 0L12 8.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-4.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"></path></svg>
+          </button>
           <img src="./Style/Asset/Image/sdcfghfvdsxcf.png" alt="Hypurr" />
           <h3>Hypurr #4210</h3>
           <p>by <strong>Hyperintern</strong></p>
@@ -100,5 +113,8 @@
   </footer>
 
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/settings.js"></script>
+  <script src="./Style/components/favorites.js"></script>
+  <script src="./Style/components/ratings.js"></script>
 </body>
 </html>
