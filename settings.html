@@ -6,18 +6,6 @@
   <title>تنظیمات | NFT گلکسی</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./Main.css" />
-  <style>
-    /* small layout helpers for settings page */
-    .settings-main { padding: 40px 60px; max-width: 980px; margin: 0 auto; }
-    .settings-card { background: var(--nft-card-bg); border-radius: 12px; padding: 20px; border:1px solid var(--card-border); box-shadow: var(--card-elevation); }
-    .settings-list { display:flex; flex-direction:column; gap:18px; }
-    .settings-item { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-    .settings-meta { text-align:right; }
-    .settings-meta h4 { margin:0; color:var(--primary-color); }
-    .settings-meta p { margin:0; color:var(--muted-text); font-size:13px; }
-    .toast { position:fixed; left:50%; transform:translateX(-50%); bottom:28px; background:#181c20; color:var(--on-surface, #fff); padding:8px 14px; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.5); opacity:0; pointer-events:none; transition:opacity .18s; z-index:9999 }
-    .toast.show { opacity:1; pointer-events:auto }
-  </style>
 </head>
 <body>
 
@@ -29,7 +17,21 @@
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
-      <ul class="nav-links">
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="منو">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li class="close-menu-item">
+          <button class="close-btn" id="closeMenuBtn" aria-label="بستن منو">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </li>
         <li><a href="./index.html">خانه</a></li>
         <li><a href="./marketplace.html">بازار</a></li>
         <li><a href="./create.html">مجموعه‌ها</a></li>
@@ -76,31 +78,7 @@
           </label>
         </div>
 
-        <!-- Auto-play previews -->
-        <div class="settings-item">
-          <div class="settings-meta">
-            <h4>پخش خودکار پیش‌نمایش‌ها</h4>
-            <p>پخش کوتاه پیش‌نمایش‌ها هنگام مرور NFTها</p>
-          </div>
 
-          <label class="md-switch">
-            <input type="checkbox" role="switch" data-setting="autoPlay" aria-checked="false">
-            <span class="switch-track"><span class="switch-thumb"></span></span>
-          </label>
-        </div>
-
-        <!-- Disabled example -->
-        <div class="settings-item">
-          <div class="settings-meta">
-            <h4>نمایش محتوای حساس</h4>
-            <p>نمایش یا پنهان کردن محتوای حساس (این گزینه موقتا غیرفعال است)</p>
-          </div>
-
-          <label class="md-switch disabled">
-            <input type="checkbox" role="switch" data-setting="sensitive" aria-checked="false" disabled>
-            <span class="switch-track"><span class="switch-thumb"></span></span>
-          </label>
-        </div>
 
       </div>
     </section>
@@ -108,68 +86,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    // Settings switches: persist in localStorage, apply immediately
-    (function(){
-      const STORAGE_KEY = 'nftg_settings_v1';
-
-      function loadSettings(){
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-        catch(e){ return {}; }
-      }
-
-      function saveSettings(obj){ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
-
-      function showToast(msg){
-        const t = document.getElementById('toast');
-        t.textContent = msg; t.classList.add('show');
-        clearTimeout(t._t); t._t = setTimeout(()=> t.classList.remove('show'), 2200);
-      }
-
-      function applySetting(key, value){
-        // immediate actions for demo
-        if(key === 'notifications'){
-          showToast(value ? '✅ اعلان‌ها فعال شد' : '🔕 اعلان‌ها غیرفعال شد');
-        }
-        if(key === 'autoPlay'){
-          showToast(value ? '▶️ پخش خودکار فعال شد' : '⏸️ پخش خودکار غیرفعال شد');
-        }
-        if(key === 'darkMode'){
-          // delegate to global theme applier so tokens are consistent across pages
-          if(window.NFTG_Settings && typeof window.NFTG_Settings.applyThemeTokens === 'function'){
-            window.NFTG_Settings.applyThemeTokens(!!value);
-          }
-          showToast(value ? '🌙 حالت تیره فعال شد' : '🌤️ حالت روشن فعال شد');
-        }
-      }
-
-      // initialize inputs
-      const settings = loadSettings();
-      document.querySelectorAll('.md-switch input[type="checkbox"]').forEach(input=>{
-        const key = input.dataset.setting;
-        // set initial checked state from storage
-        if(key && settings.hasOwnProperty(key)){
-          input.checked = !!settings[key];
-        }
-        input.setAttribute('aria-checked', input.checked ? 'true' : 'false');
-
-        input.addEventListener('change', e=>{
-          const val = !!input.checked;
-          input.setAttribute('aria-checked', val ? 'true' : 'false');
-          if(key){
-            settings[key] = val; saveSettings(settings); applySetting(key, val);
-          }
-        });
-      });
-
-      // apply any initial settings after load
-      Object.keys(settings).forEach(k => applySetting(k, settings[k]));
-      // ensure global theme tokens are applied as well
-      if(window.NFTG_Settings && typeof window.NFTG_Settings.applyThemeTokens === 'function'){
-        window.NFTG_Settings.applyThemeTokens(!!settings.darkMode);
-      }
-    })();
-  </script>
+  <script src="./Style/components/hamburger.js"></script>
   <script src="./Style/components/settings.js"></script>
   <script src="./Backend/Wallet connect.js"></script>
 
