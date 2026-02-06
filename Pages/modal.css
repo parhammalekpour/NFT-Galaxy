@@ -38,7 +38,7 @@
   background: var(--input-bg);
   border: 1px solid var(--md-border);
   border-radius: 20px;
-  /* allow content to grow with image; cap to viewport */
+
   max-width: calc(100% - 40px);
   width: auto;
   max-height: 90vh;
@@ -48,7 +48,7 @@
   transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, color 220ms ease;
 }
 
-/* Close Button */
+
 .nft-modal-close {
   position: absolute;
   top: 20px;
@@ -78,13 +78,13 @@
 
 .nft-modal-body {
   display: grid;
-  /* let image column size itself and the info column take remaining space */
+
   grid-template-columns: auto 1fr;
   gap: 30px;
   padding: 40px;
 }
 
-/* Image */
+
 .nft-modal-image {
   border-radius: 16px;
   overflow: hidden;
@@ -93,8 +93,8 @@
 
 .nft-modal-image img {
   display: block;
-  max-width: min(62vw, 760px); /* allow wide images to expand modal but cap to viewport */
-  max-height: 78vh; /* keep tall images within viewport */
+  max-width: min(62vw, 760px); 
+  max-height: 78vh; 
   width: auto;
   height: auto;
   object-fit: contain;
@@ -102,7 +102,7 @@
 
 .nft-modal-image { display:flex; align-items:center; justify-content:center; }
 
-/* Info Section */
+
 .nft-modal-info {
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@
   margin-left: 6px;
 }
 
-/* Description */
+
 .modal-description h4 {
   color: var(--text-color);
   font-size: 16px;
@@ -145,7 +145,7 @@
    ======================================== */
 
 .modal-price-value {
-  /* reduce size so it doesn't overpower the modal */
+
   font-size: 18px;
   font-weight: 700;
   color: var(--text-color);
@@ -168,18 +168,18 @@
   transition: 0.2s;
 }
 .modal-buy-btn:hover { background-color: #1559c9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,111,235,0.2); }
-/* cleaned up stray properties removed */
 
-.modal-buy-btn { /* keep inline layout by default; components.css provides most styles */
+
+.modal-buy-btn { 
   width: auto;
   padding: 10px 16px;
   border-radius: 8px;
 }
 
-/* ensure add-to-cart matches buy button in modal context */
+
 .modal-add-cart-btn { width: auto; padding: 10px 16px; border-radius: 8px; }
 
-/* Responsive: stack buttons on small screens for better touch UX */
+
 @media (max-width: 768px) {
   .modal-actions { display:flex; flex-direction:column; gap:10px; }
   .modal-actions .modal-buy-btn,
