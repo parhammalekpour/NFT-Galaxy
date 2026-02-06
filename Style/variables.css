@@ -3,21 +3,21 @@
   --secondary-color: #6F42C1;
   --background-color: #0D1117;
   --text-color: #E6EDF3;
-  /* Surface and UI tokens to support theming */
-  --surface-color: #0f131a; /* cards, sections */
+
+  --surface-color: #0f131a; 
   --navbar-background: #0b0e12;
   --navbar-border: #1a1f24;
   --card-border: rgba(255,255,255,0.06);
   --input-bg: #12171f;
   --muted-text: #b0b9c5;
-  /* component tokens */
+
   --md-border: #1a1f24;
   --nft-card-bg: rgba(255,255,255,0.05);
   --nft-card-border: var(--card-border);
   --nft-card-glow: rgba(32,129,226,0.25);
   --modal-overlay: rgba(0,0,0,0.85);
   --input-bg-disabled: #080b10;
-  /* Elevation tokens - default to none (used to add soft shadows on light theme) */
+ 
   --nav-elevation: none;
   --card-elevation: none;
   --input-elevation: none;
@@ -25,7 +25,7 @@
   --modal-elevation: none;
 }
 
-/* Light theme overrides - added as a class so JS can toggle quickly */
+
 .theme-light {
   --background-color: #ffffff;
   --text-color: #0D1117;
@@ -41,7 +41,7 @@
   --nft-card-glow: rgba(31,111,235,0.06);
   --modal-overlay: rgba(0,0,0,0.12);
   --input-bg-disabled: #f3f4f6;
-  /* Light-mode elevations - soft shadows to create subtle layers on white background */
+
   --nav-elevation: 0 1px 4px rgba(13,17,23,0.06);
   --card-elevation: 0 8px 24px rgba(13,17,23,0.06);
   --input-elevation: 0 6px 18px rgba(13,17,23,0.04);
@@ -49,7 +49,7 @@
   --modal-elevation: 0 20px 60px rgba(13,17,23,0.08);
 }
 
-/* Smooth transitions for theme changes */
+
 :root, body {
   transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
 }
