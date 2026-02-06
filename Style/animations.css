@@ -1,0 +1,603 @@
+/* ========================================
+   ANIMATIONS & TRANSITIONS
+   ======================================== */
+
+/* ========================================
+   FADE IN ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   SCALE & ZOOM ANIMATIONS
+   ======================================== */
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scalePop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ========================================
+   ROTATE ANIMATIONS
+   ======================================== */
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   GLOW ANIMATIONS
+   ======================================== */
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(31, 111, 235, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(31, 111, 235, 0.8);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(31, 111, 235, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(31, 111, 235, 1));
+  }
+}
+
+/* ========================================
+   SHIMMER ANIMATION (Loading Effect)
+   ======================================== */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ========================================
+   SLIDE ANIMATIONS
+   ======================================== */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   FLIP ANIMATION
+   ======================================== */
+
+@keyframes flip {
+  0% {
+    transform: perspective(400px) rotateY(0);
+  }
+  100% {
+    transform: perspective(400px) rotateY(360deg);
+  }
+}
+
+@keyframes flipH {
+  0% {
+    transform: perspective(400px) rotateX(0);
+  }
+  100% {
+    transform: perspective(400px) rotateX(360deg);
+  }
+}
+
+/* ========================================
+   SHAKE ANIMATION
+   ======================================== */
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* ========================================
+   WAVE ANIMATION
+   ======================================== */
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+}
+
+/* ========================================
+   HEARTBEAT ANIMATION
+   ======================================== */
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   FLOAT ANIMATION
+   ======================================== */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* ========================================
+   APPLIED ANIMATIONS TO ELEMENTS
+   ======================================== */
+
+/* Hero Section */
+main > section:first-of-type h2,
+main > section:first-of-type p {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+main > section:first-of-type {
+  animation: fadeIn 1s ease-out;
+}
+
+/* NFT Cards */
+.nft-card {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.nft-card:nth-child(1) { animation-delay: 0.1s; }
+.nft-card:nth-child(2) { animation-delay: 0.2s; }
+.nft-card:nth-child(3) { animation-delay: 0.3s; }
+.nft-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Buttons */
+.md-btn,
+.cta-btn,
+.wallet-btn,
+.nft-btn,
+.poll-btn,
+.survey-btn,
+.profile-save-btn,
+.profile-delete-btn,
+.create-submit-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.md-btn:hover,
+.cta-btn:hover,
+.wallet-btn:hover,
+.nft-btn:hover,
+.poll-btn:hover,
+.survey-btn:hover,
+.profile-save-btn:hover,
+.create-submit-btn:hover {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* Modal Animation */
+.modal-content {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Cart Button */
+.cart-btn {
+  animation: float 3s ease-in-out infinite;
+}
+
+.cart-btn:hover {
+  animation: float 2s ease-in-out infinite, glow 1s ease-in-out infinite;
+}
+
+/* Favorite Button */
+.favorite-btn.favorited {
+  animation: heartbeat 0.6s ease-in-out;
+}
+
+/* Navbar Animation */
+header {
+  animation: slideInDown 0.5s ease-out;
+}
+
+/* Footer Animation */
+footer {
+  animation: slideInUp 0.5s ease-out 0.8s backwards;
+}
+
+/* Nav Links */
+.nav-links li {
+  animation: fadeInRight 0.4s ease-out backwards;
+}
+
+.nav-links li:nth-child(1) { animation-delay: 0.1s; }
+.nav-links li:nth-child(2) { animation-delay: 0.2s; }
+.nav-links li:nth-child(3) { animation-delay: 0.3s; }
+.nav-links li:nth-child(4) { animation-delay: 0.4s; }
+
+/* Featured Section */
+.featured h2 {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+/* Poll Section */
+.poll h3 {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.poll-btn {
+  animation: slideInUp 0.5s ease-out backwards;
+}
+
+.poll-btn:nth-of-type(1) { animation-delay: 0.1s; }
+.poll-btn:nth-of-type(2) { animation-delay: 0.2s; }
+
+/* Survey Section */
+.survey {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Page Transitions */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: pageEnter 0.6s ease-out;
+}
+
+/* ========================================
+   UTILITY ANIMATION CLASSES
+   ======================================== */
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.animate-fadeInLeft {
+  animation: fadeInLeft 0.6s ease-out;
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.6s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out;
+}
+
+.animate-scalePop {
+  animation: scalePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-pulse {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-rotate {
+  animation: rotate360 2s linear infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 20%, 
+    rgba(255, 255, 255, 0) 40%);
+  background-size: 1000px 100%;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-wave {
+  animation: wave 0.6s ease-in-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ========================================
+   SMOOTH SCROLL
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   TRANSITION UTILITIES
+   ======================================== */
+
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+.transition-fast {
+  transition: all 0.15s ease;
+}
+
+.transition-slow {
+  transition: all 0.5s ease;
+}
+
+.transition-none {
+  transition: none;
+}
+
+/* ========================================
+   HOVER EFFECTS
+   ======================================== */
+
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hover-scale {
+  transition: all 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  filter: drop-shadow(0 0 10px rgba(31, 111, 235, 0.6));
+}
+
+.hover-rotate {
+  transition: all 0.3s ease;
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg);
+}
+
+/* ========================================
+   RESPONSIVE ANIMATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Reduce animation duration on mobile for better performance */
+  .nft-card {
+    animation: fadeInUp 0.4s ease-out backwards;
+  }
+
+  .nav-links li {
+    animation: fadeInRight 0.3s ease-out backwards;
+  }
+
+  .modal-content {
+    animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Disable animations that affect performance on mobile */
+  .cart-btn {
+    animation: none;
+  }
+
+  .cart-btn:hover {
+    animation: none;
+  }
+
+  /* Prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
