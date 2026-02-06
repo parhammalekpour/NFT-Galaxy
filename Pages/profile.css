@@ -52,7 +52,7 @@
   color: var(--text-color);
 }
 
-/* ---------- Avatar Upload ---------- */
+
 
 .profile-avatar-wrapper {
   display: flex;
@@ -103,7 +103,7 @@
   border-color: var(--primary-color);
 }
 
-/* ---------- Wallet Address Display ---------- */
+
 
 .profile-wallet-display {
   padding: 10px 12px;
@@ -115,7 +115,7 @@
   word-break: break-all;
 }
 
-/* ---------- Actions ---------- */
+
 
 .profile-actions {
   margin-top: 4px;
@@ -124,47 +124,7 @@
   gap: 8px;
 }
 
-.profile-save-btn {
-  align-self: flex-start;
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.25s, transform 0.08s;
-}
-
-.profile-save-btn:hover {
-  background-color: #1559c9;
-}
-
-.profile-save-btn:active {
-  transform: scale(0.97);
-}
-
-.profile-delete-btn {
-  align-self: flex-start;
-  background-color: red;
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.25s, transform 0.08s;
-}
-
-.profile-delete-btn:hover {
-  background-color: #e03b3b;
-}
-
-.profile-delete-btn:active {
-  transform: scale(0.97);
-}
+/* Button styles moved to Style/components/buttons.css */
 
 .profile-status {
   font-size: 13px;
@@ -218,7 +178,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  position: relative; /* ensure absolutely positioned buttons (like .favorite-btn) are contained inside the card */
+  position: relative; 
 }
 
 .profile-nft-card img {
