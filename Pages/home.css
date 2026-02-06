@@ -20,20 +20,7 @@
   margin-bottom: 25px;
 }
 
-.cta-btn {
-  background-color: var(--primary-color);
-  color: var(--on-primary, #fff);
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: 0.3s;
-}
 
-.cta-btn:hover {
-  background-color: #1559c9;
-}
-
-/* Responsive Hero */
 @media (max-width: 768px) {
   .hero {
     padding: 60px 20px;
@@ -108,21 +95,6 @@
   margin-bottom: 20px;
 }
 
-.poll-btn {
-  background-color: var(--secondary-color);
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.poll-btn:hover {
-  background-color: #5c33a3;
-}
-
 #poll-result {
   font-size: 16px;
   font-weight: 500;
@@ -130,7 +102,7 @@
   color: var(--muted-text);
 }
 
-/* Responsive Poll */
+
 @media (max-width: 768px) {
   .poll {
     padding: 40px 20px;
@@ -190,7 +162,7 @@
   border-color: var(--primary-color);
 }
 
-/* Make the first name / last name inputs look the same as the email input */
+
 .survey input[type="text"] {
   flex: 1;
   padding: 12px;
@@ -206,28 +178,13 @@
   border-color: var(--primary-color);
 }
 
-.survey-btn {
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 12px 28px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.survey-btn:hover {
-  background-color: #1559c9;
-}
-
 .survey-message {
   margin-top: 15px;
   font-weight: 500;
   font-size: 15px;
 }
 
-/* Responsive Survey */
+
 @media (max-width: 768px) {
   .survey {
     padding: 50px 20px;
