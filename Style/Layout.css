@@ -10,6 +10,8 @@
   background-color: var(--navbar-background);
   border-bottom: 1px solid var(--navbar-border);
   box-shadow: var(--nav-elevation);
+  position: relative;
+  z-index: 1000;
 }
 
 /* Logo */
@@ -44,10 +46,20 @@
   gap: 25px;
   margin: 0;
   padding: 0;
+  position: static;
+  flex-direction: row;
+  max-height: none;
+  overflow: visible;
+  z-index: auto;
+  visibility: visible;
+  background: transparent;
+  border: none;
 }
 
 .nav-links li {
   display: inline-block;
+  border: none !important;
+  padding: 0 !important;
 }
 
 .nav-links a {
@@ -55,6 +67,8 @@
   color: var(--text-color);
   font-weight: 500;
   transition: color 0.3s;
+  display: inline;
+  padding: 0 !important;
 }
 
 .nav-links a:hover {
@@ -65,25 +79,36 @@
   color: var(--primary-color);
 }
 
+/* در بخش اصلی CSS (خارج از مدیا کوئری) */
+.close-menu-item {
+  display: none !important; /* به طور پیش‌فرض در دسکتاپ کاملا مخفی باشد */
+}
+
+.close-btn {
+  display: none !important;
+}
+
+/* حالا در داخل مدیا کوئری موبایل */
+@media (max-width: 768px) {
+  .nav-links.active .close-menu-item {
+    display: block !important; /* فقط وقتی منو باز است در موبایل نمایش داده شود */
+    width: 100%;
+  }
+
+  .close-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
 /* Wallet Menu */
 .wallet-menu {
   position: relative;
   display: inline-block;
-}
-
-.wallet-btn {
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.wallet-btn:hover {
-  background-color: #1559c9;
 }
 
 .wallet-dropdown {
@@ -104,46 +129,199 @@
   display: none;
 }
 
-.logout-btn {
-  background-color: #ff4d4d;
-  border: none;
-  color: var(--on-primary, #fff);
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.logout-btn:hover {
-  background-color: #e03b3b;
-}
+/* Hamburger Menu Button */
+/* Note: Hamburger button styles are now in Style/components/buttons.css */
 
 /* Responsive Navbar */
 @media (max-width: 768px) {
   .navbar {
-    padding: 14px 20px;
-    flex-wrap: wrap;
-    gap: 15px;
+    padding: 12px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: nowrap;
   }
 
-  .nav-links {
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    min-width: 0;
   }
 
-  .nav-links a {
-    font-size: 14px;
+  .logo img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    max-width: 100px;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    flex-shrink: 0;
+    order: 0;
+  }
+
+  .hamburger-btn span {
+    width: 22px;
+    height: 2.5px;
+  }
+
+  .wallet-menu {
+    flex-shrink: 0;
+    order: 0;
   }
 
   .wallet-btn {
-    padding: 8px 14px;
+    padding: 6px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--navbar-background);
+    border-bottom: 1px solid var(--navbar-border);
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    z-index: 99;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .nav-links.active {
+    max-height: calc(100vh - 60px);
+    padding: 0;
+    gap: 0;
+    overflow-y: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .nav-links li {
+    display: block !important;
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 !important;
+    margin: 0;
+    border: none;
+  }
+
+  .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--navbar-border);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .nav-links li:last-child a {
+    border-bottom: none;
+  }
+
+  .nav-links li a:hover {
+    background-color: rgba(31, 111, 235, 0.08);
+    color: var(--primary-color);
+    padding-left: 20px;
+  }
+
+  .nav-links a.active-link {
+    background-color: rgba(31, 111, 235, 0.12);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 13px;
+  }
+
+  .close-menu-item {
+    display: none !important;
+  }
+
+  .nav-links.active .close-menu-item {
+    display: block !important;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.2s ease;
+    width: 100%;
     font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--navbar-border);
+  }
+
+  .close-btn:hover {
+    color: var(--primary-color);
+    background-color: rgba(31, 111, 235, 0.08);
+  }
+
+  .close-btn svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    transition: transform 0.2s ease;
+  }
+
+  .close-btn:hover svg {
+    transform: rotate(90deg);
+  }
+
+  .nav-links a {
+    font-size: 16px;
+    display: block;
+    padding: 0 !important;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: 0.2s;
   }
 
   .wallet-dropdown {
-    inset-inline-end: 50%;
-    transform: translateX(50%);
+    inset-inline-end: 0;
+    top: calc(100% + 5px);
+    transform: none;
+    z-index: 1000;
+  }
+
+  .logo {
+    order: 1;
+    flex: 1;
   }
 }
 
