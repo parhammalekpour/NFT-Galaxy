@@ -12,13 +12,12 @@
 
   function addRating(id, score){ if(!id || !score) return; const all = load(); all[id] = all[id] || []; all[id].push(score); save(all); const data = getAverage(id); document.dispatchEvent(new CustomEvent('ratings:changed', { detail: { id, avg: data.avg, count: data.count } })); return data; }
 
-  // simpler star for better visuals and fill
+
   function starSvg(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>'; }
 
   function renderStaticStars(container, id){
     if(!container) return;
-    // ensure container uses the small static star sizing used across the site
-    // (some containers like the modal may not have the `rating-widget` class)
+   
     if(!container.classList.contains('rating-widget')) container.classList.add('rating-widget');
     const data = getAverage(id);
     container.innerHTML = '';
@@ -52,9 +51,9 @@
       s.addEventListener('click', async (e)=>{
         const v = Number(e.currentTarget.dataset.value || 0);
         addRating(id, v);
-        // show thank you
+       
         prompt.innerHTML = '<div class="thankyou">از امتیاز شما متشکریم ✅</div>';
-        // refresh card / modal static view
+        
         document.dispatchEvent(new CustomEvent('ratings:changed', { detail: { id } }));
       });
       s.addEventListener('keydown', (ev)=>{ if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); s.click(); } });
@@ -66,7 +65,7 @@
     function highlight(root, upto){ Array.from(root.children).forEach((el,idx)=>{ if(idx < upto) el.classList.add('filled'); else el.classList.remove('filled'); }); }
   }
 
-  // Render ratings for widgets after render
+ 
   document.addEventListener('nfts:rendered', ()=>{
     document.querySelectorAll('.rating-widget').forEach(el => {
       const id = el.dataset.nftId || el.getAttribute('data-nft-id');
@@ -74,28 +73,28 @@
     });
   });
 
-  // Also refresh the changed one on updates
+  
   document.addEventListener('ratings:changed', (e)=>{
     const id = e.detail && e.detail.id;
     document.querySelectorAll('.rating-widget').forEach(el => { if(el.dataset.nftId === id) renderStaticStars(el, id); });
-    // modal rating updated as well
+    
     const modal = document.getElementById('modalRating'); if(modal && id){ renderStaticStars(modal, id); }
   });
 
   function openRatingInModal(nft){
     const container = document.getElementById('modalRating');
     if(!container) return;
-    // show interactive rating prompt
+    
     container.innerHTML = '';
     renderInteractive(container, nft.id || nft);
-    // open modal if it's hidden
+    
     const modal = document.getElementById('nftModal'); if(modal) modal.classList.remove('hidden');
   }
 
-  // expose helpers
+  
   window.NFTG_Ratings = { addRating, getAverage, openRatingInModal };
 
-  // Initialize any existing widgets on load
+  
   document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelectorAll('.rating-widget').forEach(el => {
       const id = el.dataset.nftId || el.getAttribute('data-nft-id');
