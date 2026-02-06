@@ -17,7 +17,21 @@
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
-      <ul class="nav-links">
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="منو">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li class="close-menu-item">
+          <button class="close-btn" id="closeMenuBtn" aria-label="بستن منو">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </li>
         <li><a href="./index.html">خانه</a></li>
         <li><a href="./marketplace.html" class="active-link">بازار</a></li>
         <li><a href="./create.html">مجموعه‌ها</a></li>
@@ -37,13 +51,21 @@
     </nav>
   </header>
 
-  <!-- ===== Main Content ===== -->
-  <main class="marketplace-main">
-
     <!-- Top Bar: Search + Filters -->
     <section class="marketplace-header">
       <div class="marketplace-header-content">
-        <h2>کاوش در بازار</h2>
+        <div class="marketplace-header-top">
+          <h2>کاوش در بازار</h2>
+          <!-- Mobile filter toggle -->
+          <button id="mobileFilterBtn" class="mobile-filter-btn" aria-label="نمایش فیلترها" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="4" y1="6" x2="20" y2="6"></line>
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+            <span>فیلترها</span>
+          </button>
+        </div>
         <p class="marketplace-subtitle">هزاران NFT منحصربه‌فرد را کشف و خریداری کنید</p>
       </div>
 
@@ -69,6 +91,9 @@
       
       <!-- Left: Filters -->
       <aside class="marketplace-filters">
+        <button class="filters-close-btn" id="closeFiltersBtn" aria-label="بستن فیلترها">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
         <h3 class="filter-title">فیلترها</h3>
 
         <!-- Status Filter -->
@@ -237,9 +262,11 @@
   </div>
 
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/hamburger.js"></script>
   <script src="./Style/components/cart.js"></script>
   <script src="./Style/components/settings.js"></script>
   <script src="./Style/components/favorites.js"></script>
   <script src="./Style/components/ratings.js"></script>
+  <script src="./Style/components/marketplace-filters.js"></script>
 </body>
 </html>
