@@ -19,7 +19,21 @@
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
-      <ul class="nav-links">
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li class="close-menu-item">
+          <button class="close-btn" id="closeMenuBtn" aria-label="بستن منو">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </li>
         <li><a href="./index.html">خانه</a></li>
         <li><a href="./marketplace.html">بازار</a></li>
         <li><a href="./create.html">مجموعه‌ها</a></li>
@@ -38,9 +52,6 @@
       </div>
     </nav>
   </header>
-
-  <!-- Main -->
-  <main>
 
     <!-- About -->
     <section class="about">
@@ -75,8 +86,8 @@
 
         <form id="surveyForm">
           <div class="form-group">
-            <input type="text" id="firstName" placeholder="نام" required>
-            <input type="text" id="lastName" placeholder="نام خانوادگی" required>
+            <input type="text" id="firstName" placeholder="نام" required minlength="3">
+            <input type="text" id="lastName" placeholder="نام خانوادگی" required minlength="3">
           </div>
 
           <input type="email" id="email" placeholder="آدرس ایمیل" required>
@@ -100,38 +111,12 @@
     <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
   </footer>
 
-  <script src="./Backend/Wallet connect.js"></script>
+
   <script src="./Style/components/settings.js"></script>
-  <script>
-    // --- Poll System ---
-    const pollButtons = document.querySelectorAll(".poll-btn");
-    const pollResult = document.getElementById("poll-result");
+  <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/hamburger.js"></script>
+  <script src="./Style/components/aboutus.js"></script>
 
-    pollButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        pollResult.textContent =
-          btn.dataset.answer === "yes"
-            ? "🔥 عالی! شما بخشی از انقلاب NFT هستید."
-            : "🚀 مشکلی نیست! بازار را کاوش کنید و سفر خود را شروع کنید!";
-      });
-    });
-
-  const surveyForm = document.getElementById("surveyForm");
-  const surveyMessage = document.getElementById("surveyMessage");
-
-  const firstNameInput = document.getElementById("firstName");
-  const emailInput = document.getElementById("email");
-
-  surveyForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    const fname = firstNameInput.value;
-    const email = emailInput.value;
-
-    surveyMessage.textContent = `✅ ممنون ${fname}! بروزرسانی‌ها را در ${email} دریافت خواهید کرد.`;
-    surveyForm.reset();
-  });
-</script>
 
 </body>
 </html>
