@@ -1,4 +1,4 @@
-/* Simple local cart for NFT-Galaxy (localStorage) */
+
 (function(){
   const KEY = 'nftg_cart_v1';
 
@@ -7,7 +7,7 @@
 
   function getCount(){ const c = load(); return Object.values(c).reduce((s,q)=>s+ (q||0), 0); }
 
-  // normalize id to string to avoid type-mismatch bugs
+
   function keyOf(id){ return String(id); }
 
   function addToCart(id, qty=1){ if(id === undefined || id === null) return; const cart = load(); const k = keyOf(id); cart[k] = (cart[k] || 0) + qty; save(cart); console.debug('[Cart] add', k, 'qty', qty, 'cart', cart); document.dispatchEvent(new CustomEvent('cart:changed',{detail:{cart}})); }
@@ -18,22 +18,22 @@
   function renderCart(){ const container = document.getElementById('cartItems'); const totalEl = document.getElementById('cartTotal'); if(!container || !totalEl) return; container.innerHTML = ''; const cart = load(); let total = 0; const ids = Object.keys(cart);
     if(!ids.length){ container.innerHTML = '<p style="color:var(--muted-text)">سبد خرید خالی است</p>'; totalEl.textContent = '0'; return; }
 
-    // detect currency uniformity for nicer total display
+ 
     const currencySet = new Set();
 
     ids.forEach(id => {
       const qty = Number(cart[id] || 0);
 
-      // Prefer the full created NFT object (with separate fields), fallback to getNftDataById
+    
       let nft = null;
       if(typeof loadCreatedNfts === 'function'){
         const created = loadCreatedNfts(); nft = created.find(x => String(x.id) === String(id)) || null;
       }
       if(!nft && typeof getNftDataById === 'function') nft = getNftDataById(id) || null;
-      if(!nft) return; // skip missing
+      if(!nft) return; 
       console.debug('[Cart] render item', String(id), nft);
 
-      // determine numeric price and currency
+
       let priceValue = 0;
       if(nft.price !== undefined && nft.currency !== undefined){ priceValue = parseFloat(nft.price) || 0; if(nft.currency) currencySet.add(nft.currency); }
       else if(nft.price !== undefined){ priceValue = parseFloat(String(nft.price)) || 0; }
@@ -46,7 +46,7 @@
       const info = document.createElement('div'); info.className = 'info';
       const name = document.createElement('div'); name.textContent = nft.name || id;
       const meta = document.createElement('div'); meta.style.fontSize='13px'; meta.style.color='var(--muted-text)';
-      // show price (support either separated price+currency or price string)
+      
       if(nft.price !== undefined && nft.currency) meta.textContent = String(nft.price) + ' ' + String(nft.currency);
       else meta.textContent = nft.price || '';
       info.appendChild(name); info.appendChild(meta);
@@ -70,13 +70,13 @@
   function closeCart(){ const modal = document.getElementById('cartModal'); if(!modal) return; modal.classList.add('hidden'); document.body.style.overflow=''; }
 
   async function checkout(){ const cart = load(); const ids = Object.keys(cart); if(!ids.length){ alert('سبد خرید خالی است'); return; }
-    // close cart so wallet popups / modals are not blocked by overlay
+    
     closeCart();
 
     if(ids.length > 1){ const okAll = confirm(`عملیات پرداخت برای ${ids.length} آیتم انجام می‌شود و ممکن است برای هر آیتم امضا درخواست شود. ادامه می‌دهید؟`); if(!okAll) return; }
 
     for(const id of ids){
-      // Prefer the full created NFT object (with separate fields), fallback to getNftDataById
+    
       let nft = null;
       if(typeof loadCreatedNfts === 'function'){
         const created = loadCreatedNfts(); nft = created.find(x => x.id === id) || null;
@@ -84,9 +84,9 @@
       if(!nft && typeof getNftDataById === 'function') nft = getNftDataById(id);
       if(!nft) continue;
       try{
-        // attempt purchase using existing handleBuyNow; it returns true/false
+       
         if(typeof handleBuyNow === 'function'){
-          // avoid repeated rating prompts during batch checkout
+         
           const ok = await handleBuyNow(nft, { openRating: false });
           if(ok) removeFromCart(id);
         }
@@ -95,7 +95,7 @@
     renderCart();
   }
 
-  // Events
+
   document.addEventListener('cart:add', (e)=>{ const id = e && e.detail && e.detail.id; if(id) addToCart(id, 1); });
   document.addEventListener('cart:changed', ()=>{ const count = getCount(); const el = document.getElementById('cartCount'); if(el) el.textContent = count; renderCart(); });
 
@@ -104,7 +104,7 @@
     const modal = document.getElementById('cartModal'); if(modal){ const overlay = modal.querySelector('.cart-modal-overlay'); const close = modal.querySelector('.cart-modal-close'); if(overlay) overlay.addEventListener('click', closeCart); if(close) close.addEventListener('click', closeCart); }
     const clearBtn = document.getElementById('clearCartBtn'); if(clearBtn) clearBtn.addEventListener('click', ()=>{ if(confirm('آیا می‌خواهید سبد خرید خالی شود؟')) clearCart(); });
     const checkoutBtn = document.getElementById('checkoutBtn'); if(checkoutBtn) checkoutBtn.addEventListener('click', checkout);
-    // render initial count
+    
     document.dispatchEvent(new CustomEvent('cart:changed'));
   });
 
