@@ -17,7 +17,22 @@
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
-      <ul class="nav-links">
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="منو">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li class="close-menu-item">
+          <button class="close-btn" id="closeMenuBtn" >
+            <!--ایکون ضبدر-->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </li>
         <li><a href="./index.html">خانه</a></li>
         <li><a href="./marketplace.html">بازار</a></li>
         <li><a href="./create.html" class="active-link">مجموعه‌ها</a></li>
@@ -36,9 +51,6 @@
       </div>
     </nav>
   </header>
-
-  <!-- ===== Main Content ===== -->
-  <main class="create-main">
 
     <!-- Create NFT Form -->
     <section class="create-section">
@@ -75,7 +87,6 @@
           <textarea
             id="nftDescription"
             class="textarea-input"
-            rows="4"
             placeholder="NFT خود و داستان آن را توصیف کنید..."
             required
           ></textarea>
@@ -103,7 +114,6 @@
                 class="text-input"
                 min="0"
                 step="0.0001"
-                placeholder="0.05"
                 required
               />
               <select id="nftCurrency" class="select-input currency-select">
@@ -141,7 +151,6 @@
       </p>
 
       <div id="createdNftList" class="created-nft-grid">
-        <!-- NFTهای جدید از طریق JS اینجا ظاهر می‌شوند -->
       </div>
     </section>
 
@@ -158,6 +167,7 @@
   </footer>
 
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/hamburger.js"></script>
   <script src="./Style/components/settings.js"></script>
 </body>
 </html>
