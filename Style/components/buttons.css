@@ -1,14 +1,13 @@
 
 
 :root {
-  /* Use global tokens where possible so component adapts to theme */
   --md-surface: var(--input-bg);
   --md-on-surface: var(--text-color);
   --md-primary: var(--primary-color);
   --md-hover: rgba(31,111,235,0.12);
 }
 
-/* Icon Button (فقط آیکن) */
+
 .icon-btn {
   --size: 40px;
   display: inline-flex;
@@ -52,18 +51,18 @@
   pointer-events: none;
 }
 
-/* Small variant */
+
 .icon-btn.sm { --size: 36px; }
 .icon-btn.lg { --size: 48px; }
 
-/* Text + Icon combined */
+
 .icon-btn.labelled {
   border-radius: 10px;
   padding: 8px 12px;
   height: auto;
 }
 
-/* Material-like raised button (generic) */
+
 .md-btn.md-raise {
   background-color: var(--md-primary);
   color: var(--on-primary, #fff);
@@ -74,7 +73,7 @@
 .md-btn.md-raise:active { transform: translateY(1px); }
 .md-btn.md-raise:disabled { opacity: 0.6; }
 
-/* Small utility to show hidden label on small screens */
+
 .icon-btn .sr-only {
   position: absolute !important;
   width: 1px;
@@ -86,10 +85,424 @@
   border: 0;
 }
 
-/* Floating Icon Button inside cards */
+
 .card-action-btn {
   position: absolute;
   top: 12px;
-  inset-inline-end: 12px; /* works with rtl/ltr */
+  inset-inline-end: 12px; 
   z-index: 2;
+}
+
+/* ========================================
+   MD-BTN (Material Design Button)
+   ======================================== */
+
+.md-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--on-primary, #fff);
+  transition: background-color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.1s ease;
+}
+
+.md-round {
+  border-radius: 999px;
+}
+
+.md-square {
+  border-radius: 6px;
+}
+
+.md-hover:hover {
+  background-color: #1559c9;
+  box-shadow: 0 4px 12px rgba(31,111,235,0.4);
+}
+
+/* ========================================
+   NFT BUTTON
+   ======================================== */
+
+.nft-btn {
+  margin-top: 12px;
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: var(--on-primary, #fff);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.nft-btn:hover {
+  background: #1559c9;
+}
+
+/* ========================================
+   FAVORITE BUTTON
+   ======================================== */
+
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.32);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: background 160ms ease, transform 120ms ease;
+  z-index: 5;
+  padding: 0;
+}
+
+.favorite-btn svg { 
+  display: block; 
+}
+
+.favorite-btn:hover { 
+  transform: scale(1.06); 
+  background: rgba(0,0,0,0.45); 
+}
+
+.favorite-btn.favorited { 
+  background: rgba(255,230,230,0.12); 
+  color: var(--danger, #e11); 
+}
+
+.favorite-btn.favorited svg path { 
+  fill: #ff4d6d; 
+  stroke: #ff4d6d; 
+}
+
+.favorite-btn svg path { 
+  transition: fill 160ms ease, stroke 160ms ease; 
+}
+
+/* ========================================
+   CTA BUTTON (Call To Action)
+   ======================================== */
+
+.cta-btn {
+  background-color: var(--primary-color);
+  color: var(--on-primary, #fff);
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cta-btn:hover {
+  background-color: #1559c9;
+}
+
+/* ========================================
+   WALLET BUTTON
+   ======================================== */
+
+.wallet-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.wallet-btn:hover {
+  background-color: #1559c9;
+}
+
+/* ========================================
+   LOGOUT BUTTON
+   ======================================== */
+
+.logout-btn {
+  background-color: #ff4d4d;
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background-color: #e03b3b;
+}
+
+/* ========================================
+   HAMBURGER BUTTON
+   ======================================== */
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+  border-radius: 4px;
+}
+
+.hamburger-btn:hover {
+  opacity: 0.7;
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex !important;
+    flex-shrink: 0;
+  }
+}
+
+.hamburger-btn span {
+  width: 24px;
+  height: 3px;
+  background-color: var(--text-color);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ========================================
+   CLOSE BUTTON
+   ======================================== */
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ========================================
+   POLL BUTTON
+   ======================================== */
+
+.poll-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.poll-btn:hover {
+  background-color: #5c33a3;
+}
+
+/* ========================================
+   SURVEY BUTTON
+   ======================================== */
+
+.survey-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.survey-btn:hover {
+  background-color: #1559c9;
+}
+
+/* ========================================
+   MODAL BUTTONS
+   ======================================== */
+
+.modal-buy-btn,
+.modal-add-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 40px;
+  min-width: 130px;
+  background: var(--primary-color);
+  color: var(--on-primary, #fff);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-buy-btn:hover,
+.modal-add-cart-btn:hover {
+  background-color: #1559c9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(31,111,235,0.2);
+}
+
+.modal-add-cart-btn:focus,
+.modal-buy-btn:focus {
+  outline: none;
+  box-shadow: 0 4px 12px rgba(31,111,235,0.12);
+}
+
+/* ========================================
+   CREATE SUBMIT BUTTON
+   ======================================== */
+
+.create-submit-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.create-submit-btn:hover {
+  background-color: #1559c9;
+}
+
+/* ========================================
+   CART BUTTON (FAB - Floating Action Button)
+   ======================================== */
+
+.cart-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: var(--on-primary, #fff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(15,100,210,0.18);
+  border: none;
+  cursor: pointer;
+  z-index: 1200;
+  font-family: inherit;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cart-btn:hover {
+  background-color: #1559c9;
+  transform: scale(1.08);
+}
+
+/* ========================================
+   PROFILE BUTTONS
+   ======================================== */
+
+.profile-save-btn {
+  align-self: flex-start;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.08s;
+  font-family: inherit;
+}
+
+.profile-save-btn:hover {
+  background-color: #1559c9;
+}
+
+.profile-save-btn:active {
+  transform: scale(0.97);
+}
+
+.profile-delete-btn {
+  align-self: flex-start;
+  background-color: red;
+  border: none;
+  color: var(--on-primary, #fff);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.08s;
+  font-family: inherit;
+}
+
+.profile-delete-btn:hover {
+  background-color: #e03b3b;
+}
+
+.profile-delete-btn:active {
+  transform: scale(0.97);
 }
