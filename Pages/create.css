@@ -302,3 +302,12 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Extra small devices: tighten up create form spacing */
+@media (max-width: 480px) {
+  .create-main { padding: 18px 12px 36px; }
+  .create-section { padding: 14px 12px 12px; }
+  .image-preview { min-height: 120px; padding: 8px; }
+  .image-preview img { max-height: 160px; display: block; }
+  .created-nft-grid { gap: 12px; }
+}
