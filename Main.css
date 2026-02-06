@@ -6,6 +6,7 @@
 @import url("./Style/components/inputs.css");
 @import url("./Style/components/fab.css");
 @import url("./Style/components/switch.css");
+@import url("./Style/animations.css");
 
 
 @import url("./pages/home.css");
@@ -14,6 +15,6 @@
 @import url("./pages/profile.css");
 @import url("./pages/marketplace.css");
 @import url("./pages/modal.css");
-
+@import url("./Pages/settings.css");
 
 
