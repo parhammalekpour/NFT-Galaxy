@@ -1,36 +1,8 @@
 /* ========================================
-   BUTTONS
+   BUTTONS (Moved to buttons.css)
    ======================================== */
+/* All button styles are now in Style/components/buttons.css */
 
-.md-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  background-color: var(--primary-color);
-  color: var(--on-primary, #fff);
-  transition: background-color 0.2s ease,
-              box-shadow 0.2s ease,
-              transform 0.1s ease;
-}
-
-.md-round {
-  border-radius: 999px;
-}
-
-.md-square {
-  border-radius: 6px;
-}
-
-.md-hover:hover {
-  background-color: #1559c9;
-  box-shadow: 0 4px 12px rgba(31,111,235,0.4);
-}
 
 /* ========================================
    NFT CARDS (Reusable)
@@ -86,48 +58,7 @@
   display: inline-block;
 }
 
-.nft-btn {
-  margin-top: 12px;
-  display: block;
-  width: 100%;
-  padding: 10px 0;
-  border-radius: 8px;
-  background: var(--primary-color);
-  color: var(--on-primary, #fff);
-  font-weight: 600;
-  text-align: center;
-  transition: 0.3s;
-}
 
-.nft-btn:hover {
-  background: #1559c9;
-}
-
-/* Favorite heart button */
-.favorite-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.32);
-  border: 1px solid rgba(255,255,255,0.06);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  cursor: pointer;
-  transition: background 160ms ease, transform 120ms ease;
-  z-index: 5;
-}
-.favorite-btn svg { display: block; }
-.favorite-btn:hover { transform: scale(1.06); background: rgba(0,0,0,0.45); }
-.favorite-btn.favorited { background: rgba(255,230,230,0.12); color: var(--danger, #e11); }
-.favorite-btn.favorited svg path { fill: #ff4d6d; stroke: #ff4d6d; }
-.favorite-btn svg path { transition: fill 160ms ease, stroke 160ms ease; }
-
-/* Ratings (stars) */
 .rating-widget { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted-text); }
 .rating-widget .star { width: 18px; height: 18px; display: inline-block; cursor: default; }
 .rating-widget .star svg { width: 100%; height: 100%; }
@@ -141,58 +72,13 @@
 .rate-prompt .star.filled svg path { fill: #FFC107; stroke: #FFC107; }
 .rate-prompt .thankyou { margin-top:8px; color: #16a34a; font-weight:600; }
 
-/* Modal button spacing: ensure buy/add buttons have comfortable gap */
+
 .modal-price-section { display:flex; align-items:center; gap:12px; }
 .modal-price-label { font-size: 13px; color: var(--muted-text); margin-right:6px; }
 .modal-price-value { font-size: 18px; font-weight:700; color: var(--text-color); white-space:nowrap; }
 
-/* Modal buy/add buttons - make them consistent in size and shape */
-.modal-buy-btn,
-.modal-add-cart-btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 10px 16px;
-  font-size: 14px;
-  border-radius: 8px;
-  height: 40px;
-  min-width: 130px; /* same minimum size for consistency */
-}
 
-.modal-buy-btn,
-.modal-add-cart-btn {
-  background: var(--primary-color);
-  color: var(--on-primary,#fff);
-  border: none;
-}
-
-/* make sure add-to-cart matches hover/interaction of buy button */
-.modal-buy-btn:hover,
-.modal-add-cart-btn:hover { background-color: #1559c9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,111,235,0.2); }
-
-/* group buttons together in modal */
 .modal-actions { display:inline-flex; gap:10px; align-items:center; }
-.modal-add-cart-btn:focus,
-.modal-buy-btn:focus { outline: none; box-shadow: 0 4px 12px rgba(31,111,235,0.12); }
-
-/* Cart */
-.cart-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  background: var(--primary-color);
-  color: var(--on-primary,#fff);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(15,100,210,0.18);
-  border: none;
-  cursor: pointer;
-  z-index: 1200;
-}
 .cart-count {
   position: absolute;
   top: -6px;
@@ -210,7 +96,7 @@
 .cart-modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
 .cart-modal-content {
   position: relative;
-  /* Use an opaque surface color to remove glass / frosted effect */
+
   background: var(--surface-color);
   border: 1px solid var(--card-border);
   border-radius: 12px;
@@ -261,7 +147,7 @@
   border-color: var(--primary-color);
 }
 
-/* Form Group */
+
 .form-group {
   display: flex;
   gap: 15px;
