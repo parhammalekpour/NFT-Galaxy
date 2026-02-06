@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- ===== Header / Navbar ===== -->
+  
   <header>
     <nav class="navbar">
       <div class="logo">
@@ -17,7 +17,21 @@
         <h1 class="brand-name">NFT <span>گلکسی</span></h1>
       </div>
 
-      <ul class="nav-links">
+      
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="منو">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li class="close-menu-item">
+          <button class="close-btn" id="closeMenuBtn" aria-label="بستن منو">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </li>
         <li><a href="./index.html">خانه</a></li>
         <li><a href="./marketplace.html">بازار</a></li>
         <li><a href="./create.html">مجموعه‌ها</a></li>
@@ -37,17 +51,15 @@
     </nav>
   </header>
 
-  <!-- ===== Main Content ===== -->
-  <main class="profile-main">
 
-    <!-- Profile Left Column: Edit Profile -->
+    
     <section class="profile-section">
       <h2>پروفایل شما</h2>
       <p class="profile-subtitle">نحوه ظاهر شدن شما در NFT گلکسی را سفارشی کنید.</p>
 
       <form id="profileForm" class="profile-form">
 
-        <!-- Profile Picture -->
+        
         <div class="profile-block">
           <label class="form-label">عکس پروفایل</label>
           <div class="profile-avatar-wrapper">
@@ -63,7 +75,7 @@
           <p class="image-hint">PNG, JPG, GIF – به صورت محلی به عنوان آواتار پروفایل ذخیره می‌شود.</p>
         </div>
 
-        <!-- Name -->
+        
         <div class="profile-block">
           <label for="profileName" class="form-label">نام نمایشی</label>
           <input
@@ -75,7 +87,7 @@
           />
         </div>
 
-        <!-- About Me -->
+        
         <div class="profile-block">
           <label for="profileAbout" class="form-label">درباره من</label>
           <textarea
@@ -87,13 +99,13 @@
           ></textarea>
         </div>
 
-        <!-- Wallet Address Display -->
+        
         <div class="profile-block">
           <label class="form-label">آدرس کیف پول</label>
           <p id="profileWalletAddress" class="profile-wallet-display">اتصال نشده</p>
         </div>
 
-        <!-- Actions -->
+  
         <div class="profile-actions">
           <button type="submit" class="profile-save-btn">ذخیره پروفایل</button>
           <button type="button" id="deleteAccountBtn" class="profile-delete-btn"> حذف حساب</button>
@@ -103,12 +115,11 @@
       </form>
     </section>
 
-    <!-- Right Column: NFTs For Sale -->
+
     <section id="favorites" class="profile-favorites-section">
       <h3>علاقه‌مندی‌ها</h3>
       <p class="profile-nft-subtitle">NFTهایی که شما به عنوان علاقه‌مندی علامت زده‌اید.</p>
       <div id="favoritesList" class="profile-nft-grid">
-        <!-- Favorited NFTs render here -->
       </div>
     </section>
 
@@ -119,13 +130,12 @@
       </p>
 
       <div id="profileNftList" class="profile-nft-grid">
-        <!-- NFTها از localStorage اینجا رندر می‌شوند -->
       </div>
     </section>
 
   </main>
 
-  <!-- ===== Footer ===== -->
+
   <footer class="footer">
     <div class="socials">
       <a href="#">توئیتر</a>
@@ -135,8 +145,9 @@
     <p>© ۱۴۰۴ NFT گلکسی. همه حقوق محفوظ است.</p>
   </footer>
 
-  <!-- Existing wallet connect logic -->
+
   <script src="./Backend/Wallet connect.js"></script>
+  <script src="./Style/components/hamburger.js"></script>
   <script src="./Style/components/settings.js"></script>
   <script src="./Style/components/favorites.js"></script>
   <script src="./Style/components/ratings.js"></script>
