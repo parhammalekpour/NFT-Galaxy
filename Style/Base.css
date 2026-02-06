@@ -1,4 +1,4 @@
-/* ---------- Global Styles ---------- */
+
 body {
   margin: 0;
   font-family: 'Vazirmatn', sans-serif;
@@ -9,7 +9,7 @@ body {
   font-size: 16px;
 }
 
-/* ---------- Typography ---------- */
+
 h1, h2, h3, h4 {
   font-weight: 700;
   color: var(--primary-color);
@@ -20,7 +20,7 @@ p {
   color: var(--muted-text);
 }
 
-/* ---------- Utility Classes ---------- */
+
 .text-center {
   text-align: center;
 }
@@ -29,7 +29,7 @@ p {
   display: none !important;
 }
 
-/* ---------- Responsive Base ---------- */
+
 @media (max-width: 768px) {
   body {
     font-size: 15px;
